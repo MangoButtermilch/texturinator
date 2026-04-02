@@ -1,13 +1,12 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { CanvasService } from '../../shared/services/canvas.service';
-import { VolumePreviewService } from '../../shared/services/volume-preview.service';
-import { UiFactoryService } from '../../shared/services/ui-factory.service';
-import { Button } from '../../shared/components/button/classes/button.class';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { faRotateLeft } from '@fortawesome/free-solid-svg-icons';
-import { IconPosition } from '../../shared/components/button/enum/button.enum';
-import { ButtonComponent } from "../../shared/components/button/button.component";
-import { Slider } from '../../shared/components/slider/classes/slider.class';
-import { SliderComponent } from "../../shared/components/slider/slider.component";
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { Button } from '../../../../shared/components/button/classes/button.class';
+import { IconPosition } from '../../../../shared/components/button/enum/button.enum';
+import { Slider } from '../../../../shared/components/slider/classes/slider.class';
+import { SliderComponent } from '../../../../shared/components/slider/slider.component';
+import { UiFactoryService } from '../../../../shared/services/ui-factory.service';
+import { VolumePreviewService } from '../../services/volume-preview.service';
 
 @Component({
   selector: 'app-volume-preview',

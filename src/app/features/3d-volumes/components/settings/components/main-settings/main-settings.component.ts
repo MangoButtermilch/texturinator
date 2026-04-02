@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { CheckboxComponent } from "../../../../shared/components/checkbox/checkbox.component";
-import { Checkbox } from '../../../../shared/components/checkbox/classes/checkbox.class';
-import { Slider } from '../../../../shared/components/slider/classes/slider.class';
-import { SliderComponent } from '../../../../shared/components/slider/slider.component';
-import { UiFactoryService } from '../../../../shared/services/ui-factory.service';
-import { CanvasService } from '../../../../shared/services/canvas.service';
-import { Observable } from 'rxjs';
-import { ShaderConfig } from '../../../../shared/interfaces/shader-configs.interfaces';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
+import { CheckboxComponent } from '../../../../../../shared/components/checkbox/checkbox.component';
+import { Checkbox } from '../../../../../../shared/components/checkbox/classes/checkbox.class';
+import { Slider } from '../../../../../../shared/components/slider/classes/slider.class';
+import { SliderComponent } from '../../../../../../shared/components/slider/slider.component';
+import { ShaderConfig } from '../../../../interfaces/shader-configs.interfaces';
+import { UiFactoryService } from '../../../../../../shared/services/ui-factory.service';
+import { CanvasService } from '../../../../services/canvas.service';
 
 @Component({
   selector: 'app-main-settings',

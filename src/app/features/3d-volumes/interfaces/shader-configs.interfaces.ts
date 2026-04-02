@@ -1,4 +1,4 @@
-import { GuidService } from "../../core/services/guid.service"
+import { GuidService } from "../../../core/services/guid.service"
 
 export enum NoiseType {
     PERLIN = "perlin",

@@ -1,23 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { MainSettingsComponent } from "../../components/main-settings/main-settings.component";
-import { TextureSettingsComponent } from "../../components/texture-settings/texture-settings.component";
-import { NoiseSettingsComponent } from "../../components/noise-settings/noise-settings.component";
-import { CanvasComponent } from "../../../canvas/canvas.component";
-import { ButtonComponent } from "../../../../shared/components/button/button.component";
-import { Button } from '../../../../shared/components/button/classes/button.class';
-import { UiFactoryService } from '../../../../shared/services/ui-factory.service';
-import { faB, faBars, faClose, faEye, faHamburger, faSave } from '@fortawesome/free-solid-svg-icons';
-import { IconPosition } from '../../../../shared/components/button/enum/button.enum';
-import { CanvasService } from '../../../../shared/services/canvas.service';
-import { Observable } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CommonModule } from '@angular/common';
-import { VolumePreviewComponent } from "../../../volume-preview/volume-preview.component";
-import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
+import { faEye, faSave, faClose, faBars } from '@fortawesome/free-solid-svg-icons';
+import { Observable } from 'rxjs';
+import { Button } from '../../../../shared/components/button/classes/button.class';
+import { IconPosition } from '../../../../shared/components/button/enum/button.enum';
 import { DialogSize } from '../../../../shared/components/dialog/enum/dialog-size.enum';
+import { UiFactoryService } from '../../../../shared/services/ui-factory.service';
+import { CanvasService } from '../../services/canvas.service';
+import { CommonModule } from '@angular/common';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
+import { CanvasComponent } from '../../components/canvas/canvas.component';
+import { MainSettingsComponent } from '../../components/settings/components/main-settings/main-settings.component';
+import { NoiseSettingsComponent } from '../../components/settings/components/noise-settings/noise-settings.component';
+import { TextureSettingsComponent } from '../../components/settings/components/texture-settings/texture-settings.component';
+import { VolumePreviewComponent } from '../../components/volume-preview/volume-preview.component';
 
 @Component({
-  selector: 'app-settings-view',
+  selector: 'app-volume-generator-view',
   imports: [
     CommonModule,
     MainSettingsComponent,
@@ -28,10 +28,10 @@ import { DialogSize } from '../../../../shared/components/dialog/enum/dialog-siz
     DialogComponent,
     VolumePreviewComponent
   ],
-  templateUrl: './settings-view.component.html',
-  styleUrl: './settings-view.component.scss'
+  templateUrl: './volume-generator-view.component.html',
+  styleUrl: './volume-generator-view.component.scss'
 })
-export class SettingsViewComponent implements OnInit {
+export class VolumeGeneratorViewComponent implements OnInit {
 
   DialogSize = DialogSize;
 
