@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Checkbox } from '../../../../shared/components/checkbox/classes/checkbox.class';
-import { Slider } from '../../../../shared/components/slider/classes/slider.class';
-import { UiFactoryService } from '../../../../shared/services/ui-factory.service';
-import { SliderComponent } from '../../../../shared/components/slider/slider.component';
-import { CustomInput } from '../../../../shared/components/input/classes/customInput.class';
-import { InputComponent } from "../../../../shared/components/input/input.component";
-import { getMaxTextureSize } from '../../../../shared/utils/webgl.utils';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable } from 'rxjs';
-import { IVector2, ShaderConfig } from '../../../../shared/interfaces/shader-configs.interfaces';
-import { CanvasService } from '../../../../shared/services/canvas.service';
+import { CustomInput } from '../../../../../../shared/components/input/classes/customInput.class';
+import { InputComponent } from '../../../../../../shared/components/input/input.component';
+import { Slider } from '../../../../../../shared/components/slider/classes/slider.class';
+import { SliderComponent } from '../../../../../../shared/components/slider/slider.component';
+import { ShaderConfig, IVector2 } from '../../../../interfaces/shader-configs.interfaces';
+import { UiFactoryService } from '../../../../../../shared/services/ui-factory.service';
+import { getMaxTextureSize } from '../../../../../../shared/utils/webgl.utils';
+import { CanvasService } from '../../../../services/canvas.service';
+
 
 @Component({
   selector: 'app-texture-settings',

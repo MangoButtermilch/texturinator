@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, Subscription, take } from 'rxjs';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { IVector2 } from '../interfaces/shader-configs.interfaces';
-import { ShaderLoaderService } from './shader-loader.service';
 import { CanvasService } from './canvas.service';
 import { IUniform } from 'three';
+import { IVector2 } from '../interfaces/shader-configs.interfaces';
+import { ShaderLoaderService } from '../../../shared/services/shader-loader.service';
 
 @Injectable({
   providedIn: 'root'

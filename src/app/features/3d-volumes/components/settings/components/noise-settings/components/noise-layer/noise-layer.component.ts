@@ -1,13 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { UiFactoryService } from '../../../../../../shared/services/ui-factory.service';
-import { Slider } from '../../../../../../shared/components/slider/classes/slider.class';
-import { Checkbox } from '../../../../../../shared/components/checkbox/classes/checkbox.class';
-import { Dropdown } from '../../../../../../shared/components/dropdown/classes/dropdown.class';
-import { SliderComponent } from "../../../../../../shared/components/slider/slider.component";
-import { DropdownComponent } from "../../../../../../shared/components/dropdown/dropdown.component";
-import { CheckboxComponent } from "../../../../../../shared/components/checkbox/checkbox.component";
-import { NoiseLayer, NoiseType } from '../../../../../../shared/interfaces/shader-configs.interfaces';
-import { CanvasService } from '../../../../../../shared/services/canvas.service';
+import { CheckboxComponent } from '../../../../../../../../shared/components/checkbox/checkbox.component';
+import { Checkbox } from '../../../../../../../../shared/components/checkbox/classes/checkbox.class';
+import { Dropdown } from '../../../../../../../../shared/components/dropdown/classes/dropdown.class';
+import { DropdownComponent } from '../../../../../../../../shared/components/dropdown/dropdown.component';
+import { Slider } from '../../../../../../../../shared/components/slider/classes/slider.class';
+import { SliderComponent } from '../../../../../../../../shared/components/slider/slider.component';
+import { NoiseLayer, NoiseType } from '../../../../../../interfaces/shader-configs.interfaces';
+import { UiFactoryService } from '../../../../../../../../shared/services/ui-factory.service';
+import { CanvasService } from '../../../../../../services/canvas.service';
+
 
 @Component({
   selector: 'app-noise-layer',

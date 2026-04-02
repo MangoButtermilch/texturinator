@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 import * as THREE from 'three';
-import { defaultConfig, IVector2, NoiseLayer, ShaderConfig } from '../interfaces/shader-configs.interfaces';
-import { mapIndexToVec4Component, noiseTypeToId, setupShaderUniforms } from '../utils/shader.utils';
-import { ShaderLoaderService } from './shader-loader.service';
 import { IUniform } from 'three';
+import { IVector2, ShaderConfig, defaultConfig, NoiseLayer } from '../interfaces/shader-configs.interfaces';
+import { ShaderLoaderService } from '../../../shared/services/shader-loader.service';
+import { setupShaderUniforms, noiseTypeToId, mapIndexToVec4Component } from '../../../shared/utils/shader.utils';
 
 @Injectable({
   providedIn: 'root'
