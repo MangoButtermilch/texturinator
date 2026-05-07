@@ -116,20 +116,20 @@ export class VolumePreviewService {
   private async loadShaderAndMaterialConfiguration(): Promise<void> {
     const noiseLibFiles = await this.shaderLoader.loadShaders(
       {
-        noiseUtils: "/assets/shaders/noiselib/0-noise-utils.glsl",
-        perlinNoise3d: "/assets/shaders/noiselib/1-perlin-noise.glsl",
-        simplexNoise3d: "/assets/shaders/noiselib/2-simplex-noise.glsl",
-        voronoi3d: "/assets/shaders/noiselib/3-voronoi-noise.glsl",
-        nebula3d: "/assets/shaders/noiselib/4-nebula-noise.glsl",
-        noiseLayers: "/assets/shaders/noiselib/5-noise-layers.glsl",
+        noiseUtils: "/assets/shaders/lib/noise/0-noise-utils.glsl",
+        perlinNoise3d: "/assets/shaders/lib/noise/1-perlin-noise.glsl",
+        simplexNoise3d: "/assets/shaders/lib/noise/2-simplex-noise.glsl",
+        voronoi3d: "/assets/shaders/lib/noise/3-voronoi-noise.glsl",
+        nebula3d: "/assets/shaders/lib/noise/4-nebula-noise.glsl",
+        noiseLayers: "/assets/shaders/lib/noise/5-noise-layers.glsl",
       }
     );
     const shaderFiles = await this.shaderLoader.loadShaders(
       {
-        uniforms: "/assets/shaders/1-uniforms.glsl",
-        uvUtils: "/assets/shaders/2-uv-utils.glsl",
-        fragment: "/assets/shaders/volume-preview/fragment.glsl",
-        vertex: "/assets/shaders/volume-preview/vertex.glsl",
+        uniforms: "/assets/shaders/3d-volume-generator/1-uniforms.glsl",
+        uvUtils: "/assets/shaders/3d-volume-generator/2-uv-utils.glsl",
+        fragment: "/assets/shaders/3d-volume-generator/volume-preview/fragment.glsl",
+        vertex: "/assets/shaders/3d-volume-generator/volume-preview/vertex.glsl",
       }
     );
 

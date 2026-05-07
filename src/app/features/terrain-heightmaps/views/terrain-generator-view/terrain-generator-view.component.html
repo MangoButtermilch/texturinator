@@ -1,0 +1,79 @@
+<div class="settings" [class.loading]="canvasLoading$ | async">
+  <app-button
+    class="toggler"
+    [config]="menuOpen ? openButton : closeButton"
+    (onClicked)="menuOpen = !menuOpen"
+  ></app-button>
+
+  <div class="settings-wrap" [class.open]="menuOpen">
+    <div class="main-settings">
+      <section>
+        <h2>Heightmap settings</h2>
+        <app-terrain-settings></app-terrain-settings>
+      </section>
+      <section>
+        <h2>Texture settings</h2>
+        <app-texture-settings></app-texture-settings>
+
+        <div class="btn-wrap">
+          <app-button
+            class="export-btn"
+            [config]="exportRawBtn"
+            (onClicked)="onExportRaw()"
+          ></app-button>
+          <app-button
+            class="export-btn"
+            [config]="exportPngBtn"
+            (onClicked)="onExportPng()"
+          ></app-button>
+          <app-button
+            class="preview-btn"
+            [config]="previewBtn"
+            (onClicked)="onPreview()"
+          ></app-button>
+        </div>
+
+        <div class="hint">
+          <p>
+            Original idea and solution by
+            <a
+              target="_blank"
+              href="https://blog.runevision.com/2026/03/fast-and-gorgeous-erosion-filter.html"
+              >Rune Skovbo Johansen
+            </a>
+          </p>
+          <ul>
+            <li>
+              <a
+                target="_blank"
+                href="https://www.youtube.com/watch?v=r4V21_uUK8Y"
+                >Youtube Video</a
+              >
+            </li>
+            <li>
+              <a target="_blank" href="https://www.shadertoy.com/view/wXcfWn"
+                >Shadertoy</a
+              >
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+    <div class="secondary-settings">
+      <section>
+        <h2>Erosion settings</h2>
+        <app-noise-settings class="secondary-settings"></app-noise-settings>
+      </section>
+    </div>
+  </div>
+  <app-canvas></app-canvas>
+</div>
+
+<app-dialog
+  [open]="previewOpen"
+  [label]="'Preview'"
+  [size]="DialogSize.LARGE"
+  (onClosed)="previewOpen = false"
+>
+  <p style="color: white">Coming soon...</p>
+</app-dialog>

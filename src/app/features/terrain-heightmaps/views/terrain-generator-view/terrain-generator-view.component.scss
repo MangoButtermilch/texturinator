@@ -50,6 +50,17 @@
     display: none;
 }
 
+.hint {
+    margin-top: calc(var(--marginSm) * 2);
+    display: block;
+    width: 100%;
+    font-weight: bold;
+
+    a,p {
+        color: var(--colorSuccessHover);
+    }
+}
+
 @media screen and (max-width: 1430px) {
     .toggler {
         display: block;

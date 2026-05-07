@@ -1,0 +1,15 @@
+<h3>Texture resolution (max: {{ maxTextureSize }})</h3>
+<div class="texture-wrap">
+  <app-input [config]="inputTextureSizeX" (onValueChange)="updateOutputResolutionX($event)"></app-input>
+  <app-input [config]="inputTextureSizeY" (onValueChange)="updateOutputResolutionY($event)"></app-input>
+</div>
+
+<div class="checkbox-wrap">
+  <h2>Texture channels</h2>
+  @for (checkbox of checkboxes; track $index) {
+    <app-checkbox
+      [config]="checkbox"
+      (onValueChange)="onCheckboxChange($event)"
+    ></app-checkbox>
+  }  
+</div>

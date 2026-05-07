@@ -1,4 +1,4 @@
-.noise-settings-wrap {
+.secondary-settings-wrap {
     padding: var(--paddingSm);
     overflow-y: auto;
     max-height: 100svh;
@@ -11,7 +11,7 @@
 }
 
 @media screen and (max-width: 1155px) {
-    .noise-settings-wrap {
+    .secondary-settings-wrap {
         max-height: unset;
         background-color: #444;
     }

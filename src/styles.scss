@@ -66,6 +66,11 @@ body {
     color: var(--textColor);
     overflow: clip;
 }
+app-root {
+    display: block;
+    height: 100%;
+}
+
 input {
     margin: 0;
 }
@@ -94,18 +99,6 @@ app-dialog {
     }
 }
 
-app-settings-main,
-app-settings-texture,
-app-noise-layer-list,
-app-canvas,
-app-main {
-    display: block;
-}
-
-app-main {
-    height: 100%;
-}
-
 .visually-hidden {
     position: absolute;
     left: 0;
@@ -131,3 +124,4 @@ app-main {
         color: var(--textColor);
     }
 }
+
