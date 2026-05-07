@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CanvasComponent } from '../../components/canvas/canvas.component';
 import { CanvasService } from '../../services/canvas.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Observable } from 'rxjs';
+import { Observable, startWith } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { NoiseSettingsComponent } from "../../components/settings/components/noise-settings/noise-settings.component";
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
@@ -25,7 +25,7 @@ import { DialogComponent } from '../../../../shared/components/dialog/dialog.com
     TextureSettingsComponent,
     TerrainSettingsComponent,
     DialogComponent
-],
+  ],
   templateUrl: './terrain-generator-view.component.html',
   styleUrl: './terrain-generator-view.component.scss'
 })
@@ -38,7 +38,9 @@ export class TerrainGeneratorViewComponent {
   public exportPngBtn: Button;
   public menuOpen: boolean = true;
   public canvasLoading$: Observable<boolean> = this.canvasService.getCanvasLoading()
-    .pipe(takeUntilDestroyed());
+    .pipe(
+      startWith(true),
+      takeUntilDestroyed());
 
   public openButton: Button;
   public closeButton: Button;

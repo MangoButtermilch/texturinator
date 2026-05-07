@@ -1,6 +1,6 @@
 @if (config) {
 
-  <label for="{{ config.id }}">{{ config.label }}</label>
+  <label [for]="config.id">{{ config.label }}</label>
   <div class="slider-wrap">
     <button
       class="slider-reset"

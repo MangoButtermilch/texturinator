@@ -65,7 +65,8 @@
         top: 0;
         z-index: 1;
         width: fit-content;
-        height: 100svh;
+        top: var(--navbarHeight);
+        height: calc(100svh - var(--navbarHeight));
         left: 0;
         transform: translateX(-100%);
         transition: transform var(--transitionSpeed) ease-in-out;

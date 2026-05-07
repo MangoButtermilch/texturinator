@@ -34,7 +34,8 @@ export class CanvasService {
   }
 
   public onDestroy(): void {
-    this.renderer.dispose();
+    window.removeEventListener("resize", this.onResize);
+    this.renderer?.dispose();
   }
 
   public getShaderUniforms(): Observable<{ [uniform: string]: IUniform<any>; }> {
@@ -42,7 +43,7 @@ export class CanvasService {
   }
 
   public async setup(element: HTMLCanvasElement): Promise<void> {
-    this.setCanvasLoading(true);
+   requestAnimationFrame(() => {this.setCanvasLoading(true);}) 
 
     this.canvas = element;
     const bounds = this.canvas.getBoundingClientRect();

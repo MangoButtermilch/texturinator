@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { faEye, faSave, faClose, faBars } from '@fortawesome/free-solid-svg-icons';
-import { Observable } from 'rxjs';
+import { Observable, startWith } from 'rxjs';
 import { Button } from '../../../../shared/components/button/classes/button.class';
 import { IconPosition } from '../../../../shared/components/button/enum/button.enum';
 import { DialogSize } from '../../../../shared/components/dialog/enum/dialog-size.enum';
@@ -39,7 +39,9 @@ export class VolumeGeneratorViewComponent implements OnInit {
   public exportBtn: Button;
   public menuOpen: boolean = true;
   public canvasLoading$: Observable<boolean> = this.canvasService.getCanvasLoading()
-    .pipe(takeUntilDestroyed());
+    .pipe(
+      startWith(true),
+      takeUntilDestroyed());
 
   public openButton: Button;
   public closeButton: Button;
