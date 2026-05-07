@@ -1,0 +1,6 @@
+@for (slider of sliders; track $index) {
+  <app-slider
+    [config]="slider"
+    (onValueChange)="onSliderChange($event)"
+  ></app-slider>
+}

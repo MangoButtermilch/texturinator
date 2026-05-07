@@ -33,7 +33,6 @@ export class VolumePreviewService {
   private initialCameraPosition = new THREE.Vector3();
   private initialCameraTarget = new THREE.Vector3();
 
-  private shaderUniformSubscr: Subscription = null;
   private shaderUniforms$: Observable<{ [uniform: string]: IUniform<any>; }> = this.canvasService.getShaderUniforms();
   private shaderUniforms: { [uniform: string]: IUniform<any>; } = null;
   private quad: THREE.Mesh = null;
@@ -46,7 +45,7 @@ export class VolumePreviewService {
   }
 
   private handleShaderUniforms(): void {
-    this.shaderUniformSubscr = this.shaderUniforms$.subscribe((uniforms) => {
+    this.shaderUniforms$.subscribe((uniforms) => {
       this.shaderUniforms = uniforms;
 
       if (this.material) {
@@ -64,17 +63,16 @@ export class VolumePreviewService {
   }
 
   public handleOnInit(): void {
-    this.onInit$
-      .pipe(take(1))
-      .subscribe((element) => {
-        window.addEventListener("resize", this.onResize);
-        this.setup(element);
-      })
+    this.onInit$.subscribe((element) => {
+      window.addEventListener("resize", this.onResize);
+      this.setup(element);
+    })
   }
 
   public onDestroy(): void {
-    this.renderer.dispose();
-    this.shaderUniformSubscr.unsubscribe();
+    window.removeEventListener("resize", this.onResize);
+    this.renderer?.dispose();
+    this.initialized = false;
   }
 
   private async setup(element: HTMLCanvasElement): Promise<void> {
@@ -116,20 +114,20 @@ export class VolumePreviewService {
   private async loadShaderAndMaterialConfiguration(): Promise<void> {
     const noiseLibFiles = await this.shaderLoader.loadShaders(
       {
-        noiseUtils: "/assets/shaders/noiselib/0-noise-utils.glsl",
-        perlinNoise3d: "/assets/shaders/noiselib/1-perlin-noise.glsl",
-        simplexNoise3d: "/assets/shaders/noiselib/2-simplex-noise.glsl",
-        voronoi3d: "/assets/shaders/noiselib/3-voronoi-noise.glsl",
-        nebula3d: "/assets/shaders/noiselib/4-nebula-noise.glsl",
-        noiseLayers: "/assets/shaders/noiselib/5-noise-layers.glsl",
+        noiseUtils: "/assets/shaders/lib/noise/0-noise-utils.glsl",
+        perlinNoise3d: "/assets/shaders/lib/noise/1-perlin-noise.glsl",
+        simplexNoise3d: "/assets/shaders/lib/noise/2-simplex-noise.glsl",
+        voronoi3d: "/assets/shaders/lib/noise/3-voronoi-noise.glsl",
+        nebula3d: "/assets/shaders/lib/noise/4-nebula-noise.glsl",
       }
     );
     const shaderFiles = await this.shaderLoader.loadShaders(
       {
-        uniforms: "/assets/shaders/1-uniforms.glsl",
-        uvUtils: "/assets/shaders/2-uv-utils.glsl",
-        fragment: "/assets/shaders/volume-preview/fragment.glsl",
-        vertex: "/assets/shaders/volume-preview/vertex.glsl",
+        uniforms: "/assets/shaders/3d-volume-generator/1-uniforms.glsl",
+        uvUtils: "/assets/shaders/3d-volume-generator/2-uv-utils.glsl",
+        noiseLayers: "/assets/shaders/3d-volume-generator/3-noise-layers.glsl",
+        fragment: "/assets/shaders/3d-volume-generator/volume-preview/fragment.glsl",
+        vertex: "/assets/shaders/3d-volume-generator/volume-preview/vertex.glsl",
       }
     );
 
@@ -139,10 +137,11 @@ export class VolumePreviewService {
         .concat(noiseLibFiles['simplexNoise3d'])
         .concat(noiseLibFiles['voronoi3d'])
         .concat(noiseLibFiles['nebula3d'])
-        .concat(noiseLibFiles['noiseLayers'])
+        .concat(shaderFiles['noiseLayers'])
         .concat(shaderFiles['uniforms'])
         .concat(shaderFiles['uvUtils'])
         .concat(shaderFiles['fragment']);
+
 
     this.material = new THREE.ShaderMaterial({
       transparent: true,

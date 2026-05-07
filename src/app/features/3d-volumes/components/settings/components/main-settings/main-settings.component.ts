@@ -21,7 +21,7 @@ export class MainSettingsComponent implements OnInit {
   public checkboxes: Checkbox[];
 
   private shaderUvConfig$: Observable<ShaderConfig> = this.canvasService.getShaderConfig()
-    .pipe(takeUntilDestroyed());
+    .pipe(takeUntilDestroyed()); 
 
   constructor(
     private canvasService: CanvasService,

@@ -1,18 +1,21 @@
 .noise-settings-wrap {
-    padding: var(--paddingSm);
+    max-height: calc(100svh - var(--navbarHeight));
     overflow-y: auto;
-    max-height: 100svh;
     overflow-x: clip;
-    section {
+    h2 {
+        padding: calc(var(--paddingSm) * 2);
+    }
+    section { 
         padding: var(--paddingSm);
         margin: var(--marginSm);
         border: 2px dashed var(--colorUi);
     }
 }
 
-@media screen and (max-width: 1155px) {
+@media screen and (max-width: 1430px) {
     .noise-settings-wrap {
         max-height: unset;
         background-color: #444;
+        overflow-y: hidden;
     }
 }

@@ -1,2 +1,21 @@
-<app-volume-generator-view></app-volume-generator-view>
+<ul class="nav">
+    @for (menu of menus; track $index) {
+        <li class="nav-item" 
+            [class.active]="menu === (currentMenu$ | async)"
+            (click)="switchTab(menu)">
+            {{getLabelForMenuItem(menu)}}
+        </li>
+    }
+</ul>
+
+@switch (currentMenu$ | async) {
+    @case (MenuType.VOLUME_GENERATOR) {
+        <app-volume-generator-view></app-volume-generator-view>
+    } 
+    @case (MenuType.TERRAIN_GENERATOR) {
+        <app-terrain-generator-view></app-terrain-generator-view>
+    } 
+}
+
+
 <div aria-label="app-version" class="version-hint">{{ version }}</div>

@@ -1,0 +1,18 @@
+.nav {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0;
+    padding: var(--paddingSm);
+    .nav-item {
+        padding: var(--paddingSm);
+        background-color: var(--colorUiBackground);
+        margin-right: var(--marginSm);
+        &:hover,
+        &.active {
+            background-color: var(--colorPrimary);
+            cursor: pointer;
+        }
+    }
+}

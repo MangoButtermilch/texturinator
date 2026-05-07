@@ -26,7 +26,7 @@
     section {
         padding: var(--paddingSm);
         margin: var(--marginSm);
-        border: 2px dashed var(--colorUiBackground);
+        border: 2px dashed var(--colorUi);
     }
     app-canvas {
         display: block;
@@ -50,6 +50,17 @@
     display: none;
 }
 
+.hint {
+    margin-top: calc(var(--marginSm) * 2);
+    display: block;
+    width: 100%;
+    font-weight: bold;
+
+    a,p {
+        color: var(--colorSuccessHover);
+    }
+}
+
 @media screen and (max-width: 1430px) {
     .toggler {
         display: block;
@@ -65,8 +76,8 @@
         top: 0;
         z-index: 1;
         width: fit-content;
-        top: var(--navbarHeight);
         height: calc(100svh - var(--navbarHeight));
+        top: var(--navbarHeight);
         left: 0;
         transform: translateX(-100%);
         transition: transform var(--transitionSpeed) ease-in-out;
