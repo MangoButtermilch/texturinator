@@ -4,7 +4,7 @@ import * as THREE from 'three';
 import { IUniform } from 'three';
 import { IVector2, ShaderConfig, defaultConfig, NoiseLayer } from '../interfaces/shader-configs.interfaces';
 import { ShaderLoaderService } from '../../../shared/services/shader-loader.service';
-import { setupShaderUniforms, noiseTypeToId, mapIndexToVec4Component } from '../../../shared/utils/shader.utils';
+import { setupShaderUniforms, noiseTypeToId, mapIndexToVec4Component } from '../utils/shader.utils';
 
 @Injectable({
   providedIn: 'root'

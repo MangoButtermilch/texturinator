@@ -1,4 +1,4 @@
-import { IVector2, NoiseType, ShaderConfig } from "../../features/3d-volumes/interfaces/shader-configs.interfaces";
+import { IVector2, NoiseType, ShaderConfig } from "../interfaces/shader-configs.interfaces";
 import * as THREE from 'three';
 
 export function mapIndexToVec4Component(index: number): string {

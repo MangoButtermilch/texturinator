@@ -3,7 +3,7 @@ import { BehaviorSubject, ReplaySubject, Observable } from 'rxjs';
 import * as THREE from 'three';
 import { IUniform } from 'three';
 import { ShaderLoaderService } from '../../../shared/services/shader-loader.service';
-import { setupShaderUniforms, noiseTypeToId, mapIndexToVec4Component } from '../../../shared/utils/shader.utils';
+import { setupShaderUniforms, noiseTypeToId, mapIndexToVec4Component } from '../../3d-volumes/utils/shader.utils';
 import { IVector2, ShaderConfig, defaultConfig, NoiseLayer } from '../../3d-volumes/interfaces/shader-configs.interfaces';
 
 @Injectable({
