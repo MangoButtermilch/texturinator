@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CanvasComponent } from '../../components/canvas/canvas.component';
 import { CanvasService } from '../../services/canvas.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, startWith } from 'rxjs';
@@ -14,6 +13,7 @@ import { UiFactoryService } from '../../../../shared/services/ui-factory.service
 import { TextureSettingsComponent } from '../../components/settings/components/texture-settings/texture-settings.component';
 import { TerrainSettingsComponent } from '../../components/settings/components/terrain-settings/terrain-settings.component';
 import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
+import { CanvasComponent } from '../../../../shared/components/canvas/canvas.component';
 
 @Component({
   selector: 'app-terrain-generator-view',
@@ -49,7 +49,7 @@ export class TerrainGeneratorViewComponent {
 
   constructor(
     private uiFactory: UiFactoryService,
-    private canvasService: CanvasService) { }
+    public canvasService: CanvasService) { }
 
   ngOnInit(): void {
     this.previewBtn = this.uiFactory.buildButton(
