@@ -121,3 +121,78 @@ export const defaultConfig: ShaderConfig = {
     noiseLayerEnabled: { x: 1, y: 1, z: 1, w: 1 },
     noiseLayerInverted: { x: 0, y: 0, z: 0, w: 0 },
 }
+
+export const logoNoiseLayerConfig: NoiseLayer[] = [
+    {
+        id: GuidService.new,
+        title: "Noise layer 1",
+        uniformName: "noiseLayer1",
+        noiseType: NoiseType.NEBULA,
+        scale: 1.489,
+        angleOffset: 0.,
+        power: 5.62,
+        distortion: 0.,
+        enabled: true,
+        inverted: false,
+    },
+    {
+        id: GuidService.new,
+        title: "Noise layer 2",
+        uniformName: "noiseLayer2",
+        noiseType: NoiseType.VORONOI,
+        scale: 3.91,
+        angleOffset: 13.69,
+        power: 0.81,
+        distortion: 0.,
+        enabled: false,
+        inverted: false,
+    },
+    {
+        id: GuidService.new,
+        title: "Noise layer 3",
+        uniformName: "noiseLayer3",
+        noiseType: NoiseType.SIMPLEX,
+        scale: 2.12,
+        angleOffset: 0.0,
+        power: 0.55,
+        distortion: 0.,
+        enabled: false,
+        inverted: false,
+    },
+    {
+        id: GuidService.new,
+        title: "Noise layer 4",
+        uniformName: "noiseLayer4",
+        noiseType: NoiseType.NEBULA,
+        scale: 1.15,
+        angleOffset: 0.0,
+        power: 1.15,
+        distortion: 0.,
+        enabled: false,
+        inverted: false,
+    }
+];
+
+export const logoConfig: ShaderConfig = {
+    depth: -1.82,
+    centerRadius: 0.95,
+    centerStrength: 0.001,
+    borderStrength: 0.32,
+    totalBrightness: 0.37,
+    numCells: 1,
+
+    noiseLayers: logoNoiseLayerConfig,
+    tilingPerCell: 1,
+
+    positionOffset: { x: 0, y: 0, z: 0 },
+    growAndShrinkCells: false,
+    hideFirstCell: false,
+    hideLastCell: false,
+
+    cellSpherizeStrength: 0.,
+    cellRadialShearStrength: 0.,
+    cellTwirlStrength: 0.,
+    noiseLayerDistortion: { x: 0, y: 0, z: 0, w: 0 },
+    noiseLayerEnabled: { x: 1, y: 0, z: 0, w: 0 },
+    noiseLayerInverted: { x: 0, y: 0, z: 0, w: 0 },
+}

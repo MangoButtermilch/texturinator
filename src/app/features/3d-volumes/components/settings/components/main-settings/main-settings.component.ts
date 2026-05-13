@@ -20,9 +20,8 @@ export class MainSettingsComponent implements OnInit {
   public sliders: Slider[];
   public checkboxes: Checkbox[];
 
-  private shaderUvConfig$: Observable<ShaderConfig> = this.canvasService.getShaderConfig()
-    .pipe(takeUntilDestroyed()); 
-
+  private shaderConfig$: Observable<ShaderConfig> = this.canvasService.getShaderConfig()
+    .pipe(takeUntilDestroyed());
   constructor(
     private canvasService: CanvasService,
     private uiFactory: UiFactoryService
@@ -45,11 +44,11 @@ export class MainSettingsComponent implements OnInit {
       this.uiFactory.buildCheckbox("Grow and shrink cells", "growAndShrinkCells")
     ];
 
-    this.handleUvConfigChanges();
+    this.handleConfigChanges();
   }
 
-  private handleUvConfigChanges(): void {
-    this.shaderUvConfig$.subscribe((config: ShaderConfig) => {
+  private handleConfigChanges(): void {
+    this.shaderConfig$.subscribe((config: ShaderConfig) => {
       for (const [name, value] of Object.entries(config)) {
 
         const slider = this.getSliderByUniformName(name);
