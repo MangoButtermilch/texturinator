@@ -50,12 +50,4 @@ export class MainSettingsComponent implements OnInit {
   public onCheckboxChange(checkbox: Checkbox): void {
     this.canvasService.updateShaderUniform(checkbox.uniformName, checkbox.value);
   }
-
-  private getSliderByUniformName(name: string): Slider | null {
-    return this.sliders.find((other) => other.uniformName === name);
-  }
-
-  private getCheckboxByUniformName(name: string): Checkbox | null {
-    return this.checkboxes.find((other) => other.uniformName === name);
-  }
 }

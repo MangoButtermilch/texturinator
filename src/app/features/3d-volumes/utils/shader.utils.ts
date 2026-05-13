@@ -1,5 +1,4 @@
-import { IVector2, NoiseType, ShaderConfig } from "../interfaces/shader-configs.interfaces";
-import * as THREE from 'three';
+import { NoiseType } from "../interfaces/shader-configs.interfaces";
 
 export function mapIndexToVec4Component(index: number): string {
     switch (index) {
