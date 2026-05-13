@@ -11,8 +11,8 @@ import { ShaderConfig, defaultConfig, NoiseLayer, logoConfig } from '../interfac
 })
 export class CanvasService extends DefaultCanvas {
 
-  private config$ = new BehaviorSubject<ShaderConfig>(logoConfig);
-  private config: ShaderConfig = logoConfig;
+  private config$ = new BehaviorSubject<ShaderConfig>(defaultConfig);
+  private config: ShaderConfig = defaultConfig;
 
   constructor(private shaderLoader: ShaderLoaderService) {
     super();
