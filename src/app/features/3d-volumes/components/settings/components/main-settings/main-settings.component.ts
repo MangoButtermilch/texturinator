@@ -20,9 +20,6 @@ export class MainSettingsComponent implements OnInit {
   public sliders: Slider[];
   public checkboxes: Checkbox[];
 
-  private shaderUvConfig$: Observable<ShaderConfig> = this.canvasService.getShaderConfig()
-    .pipe(takeUntilDestroyed()); 
-
   constructor(
     private canvasService: CanvasService,
     private uiFactory: UiFactoryService
@@ -44,24 +41,6 @@ export class MainSettingsComponent implements OnInit {
       this.uiFactory.buildCheckbox("Hide last cell", "hideLastCell"),
       this.uiFactory.buildCheckbox("Grow and shrink cells", "growAndShrinkCells")
     ];
-
-    this.handleUvConfigChanges();
-  }
-
-  private handleUvConfigChanges(): void {
-    this.shaderUvConfig$.subscribe((config: ShaderConfig) => {
-      for (const [name, value] of Object.entries(config)) {
-
-        const slider = this.getSliderByUniformName(name);
-        const checkbox = this.getCheckboxByUniformName(name);
-
-        if (slider) {
-          slider.value = value;
-        } else if (checkbox) {
-          checkbox.value = value;
-        }
-      }
-    });
   }
 
   public onSliderChange(slider: Slider): void {
