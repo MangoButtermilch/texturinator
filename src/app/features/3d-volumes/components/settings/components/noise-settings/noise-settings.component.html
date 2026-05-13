@@ -1,6 +1,6 @@
 <div class="noise-settings-wrap">
   <h2>Noise settings</h2>
-  @for (layer of noiseLayers; track $index) {
+  @for (layer of (noiseLayers$ | async).noiseLayers; track $index) {
     <section>
       <app-noise-layer [config]="layer"></app-noise-layer>
     </section>

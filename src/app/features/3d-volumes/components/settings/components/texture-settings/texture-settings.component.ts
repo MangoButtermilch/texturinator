@@ -26,7 +26,7 @@ export class TextureSettingsComponent implements OnInit {
   public inputTextureSizeX: CustomInput;
   public inputTextureSizeY: CustomInput;
 
-  private shaderUvConfig$: Observable<ShaderConfig> = this.canvasService.getShaderConfig()
+  private shaderConfig$: Observable<ShaderConfig> = this.canvasService.getShaderConfig()
     .pipe(takeUntilDestroyed());
 
   private outputResolution: IVector2 = this.canvasService.getOutputResolution();
@@ -51,7 +51,7 @@ export class TextureSettingsComponent implements OnInit {
     ];
 
     this.maxTextureSize = getMaxTextureSize();
-    this.handleUvConfigChanges();
+    this.handleConfigChanges();
   }
 
   public updateOutputResolutionX(value: string | number): void {
@@ -74,8 +74,8 @@ export class TextureSettingsComponent implements OnInit {
     );
   }
 
-  private handleUvConfigChanges(): void {
-    this.shaderUvConfig$.subscribe((config: ShaderConfig) => {
+  private handleConfigChanges(): void {
+    this.shaderConfig$.subscribe((config: ShaderConfig) => {
       for (const [name, value] of Object.entries(config)) {
         const slider = this.getSliderByUniformName(name);
         if (slider) {

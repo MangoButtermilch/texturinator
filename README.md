@@ -1,28 +1,85 @@
-# 3D volume generator
+![](/screenshots/logo_small.png)
+# Texturinator
+## A free web-based procedural texture and volume generation toolkit for volumetric rendering, terrain generation.
 
-Currently a prototype and rework of [this older version](https://acetix.itch.io/pseudo-volume-generator) (made with Unity).
+Currently focused on:
+- Pseudo volume texture generation aka. 3D textures
+- Terrain / erosion map generation
 
-## Try the [Live version](https://pseudo-volume-generator.buttermilch-dev.de)
+Originally started as a rework of the older Unity-based tool:
+https://acetix.itch.io/pseudo-volume-generator
 
-## What is this tool for?
+---
 
-This tool is used to generate pseudo volume textures aka. 3D textures, specifically for volumetric ray marching for clouds and nebula.
+## Try the Live Version
 
+https://pseudo-volume-generator.buttermilch-dev.de
 
-Here is an example (video):
+---
+
+# Features
+
+## Volumetric Texture Generation
+
+Generate pseudo volume textures (3D texture atlases) for:
+- Volumetric clouds
+- Nebulae
+- Fog
+- Smoke
+- Raymarching shaders
+
+These textures can be used in:
+- Unity
+- Unreal Engine
+- Godot
+- Custom OpenGL/WebGPU/WebGL renderers
+
+### Example
 
 [![Volumetric raymarching example](https://img.youtube.com/vi/i6RR4T7nzuU/0.jpg)](https://www.youtube.com/watch?v=i6RR4T7nzuU)
 
-
-Generates these textures           |  For rendering volumes
+Generates these textures           |  Used for rendering volumes
 :-------------------------:|:-------------------------:
-![](/screenshots/texture_example.png)  |  ![](/screenshots/volume_preview.png)
+![](/screenshots/3d-volumes/texture_example.png)  |  ![](/screenshots/3d-volumes/volume_preview.png)
 
+---
 
-## Contributions
+## Terrain & Erosion Generation
 
-Feel free to create issues or PRs if you have ideas, problems etc.
+The project now also includes terrain and erosion texture generation based on the work of Rune Skovbo Johansen:
 
+https://blog.runevision.com/2026/03/fast-and-gorgeous-erosion-filter.html
+
+Used for generating height/erosion maps
+
+### Example
+![](/screenshots/terrain-generator/map.png)
+
+---
+
+# Project Goals
+
+The long-term goal is to turn this into a modular procedural graphics toolkit for:
+- Volumetrics
+- Terrain generation
+- Procedural textures
+- Shader authoring workflows
+- Technical art pipelines
+
+---
+
+# Contributions
+
+Feel free to create issues or PRs if you have:
+- ideas
+- feature requests
+- bug reports
+- optimization improvements
+- rendering experiments
+
+Contributions are always welcome.
+
+---
 ## Angular setup
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.1.

@@ -55,7 +55,7 @@ export class NoiseLayerComponent implements OnInit {
     );
 
     this.invertCheckbox = this.uiFactory.buildCheckbox("Inverted", "inverted");
-    this.enabledCheckbox = this.uiFactory.buildCheckbox("Enabled", "enabled", true);
+    this.enabledCheckbox = this.uiFactory.buildCheckbox("Enabled", "enabled", this.config.enabled);
   }
 
   public onInputChange(input: Slider | Dropdown | Checkbox): void {

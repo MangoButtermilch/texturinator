@@ -1,81 +1,24 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, ReplaySubject, Subject } from 'rxjs';
 import * as THREE from 'three';
-import { IUniform } from 'three';
-import { IVector2, ShaderConfig, defaultConfig, NoiseLayer } from '../interfaces/shader-configs.interfaces';
+import { DefaultCanvas } from '../../../core/services/default-canvas.class';
 import { ShaderLoaderService } from '../../../shared/services/shader-loader.service';
-import { setupShaderUniforms, noiseTypeToId, mapIndexToVec4Component } from '../../../shared/utils/shader.utils';
+import { mapIndexToVec4Component, noiseTypeToId } from '../utils/shader.utils';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { ShaderConfig, defaultConfig, NoiseLayer, logoConfig } from '../interfaces/shader-configs.interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CanvasService {
-  private canvas: HTMLCanvasElement = null;
-
-  private scene: THREE.Scene;
-  private camera: THREE.PerspectiveCamera;
-  private renderer: THREE.WebGLRenderer;
-
-  private material: THREE.ShaderMaterial;
-  private resolution: IVector2;
+export class CanvasService extends DefaultCanvas {
 
   private config$ = new BehaviorSubject<ShaderConfig>(defaultConfig);
   private config: ShaderConfig = defaultConfig;
 
-  private outputResolution$ = new BehaviorSubject<IVector2>({ x: 4096, y: 4096 });
-
-  private renderPending: boolean = false;
-  private canvasLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
-
-  private shaderUniforms$ = new ReplaySubject<{ [uniform: string]: IUniform<any>; }>();
-
   constructor(private shaderLoader: ShaderLoaderService) {
-    window.addEventListener("resize", this.onResize);
+    super();
   }
 
-  public onDestroy(): void {
-    window.removeEventListener("resize", this.onResize);
-    this.renderer?.dispose();
-  }
-
-  public getShaderUniforms(): Observable<{ [uniform: string]: IUniform<any>; }> {
-    return this.shaderUniforms$.asObservable();
-  }
-
-  public async setup(element: HTMLCanvasElement): Promise<void> {
-   requestAnimationFrame(() => {this.setCanvasLoading(true);}) 
-
-    this.canvas = element;
-    const bounds = this.canvas.getBoundingClientRect();
-    const size = Math.min(bounds.width, bounds.height);
-
-    this.resolution = { x: size, y: size };
-
-    this.scene = new THREE.Scene();
-
-    this.camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);  // aspect=1
-    this.camera.position.set(0, 0, 5);
-    this.camera.updateProjectionMatrix();
-
-    this.renderer = new THREE.WebGLRenderer({
-      canvas: this.canvas,
-      antialias: true,
-      alpha: false
-    });
-    this.renderer.setSize(size, size);
-
-    await this.loadShaderAndMaterialConfiguration();
-    const geometry = new THREE.PlaneGeometry(2, 2);
-    const quad = new THREE.Mesh(geometry, this.material);
-
-    this.scene.add(quad);
-    this.scheduleRender();
-
-    this.setCanvasLoading(false);
-  }
-
-  private async loadShaderAndMaterialConfiguration(): Promise<void> {
-
+  protected async loadShaderAndMaterialConfiguration(): Promise<void> {
     const noiseLibFiles = await this.shaderLoader.loadShaders(
       {
         noiseUtils: "/assets/shaders/lib/noise/0-noise-utils.glsl",
@@ -110,30 +53,106 @@ export class CanvasService {
       vertexShader: shaderFiles['vertex'],
       fragmentShader: shaderSetupFragment
     });
-    setupShaderUniforms(this.resolution, this.material, this.config);
+    this.setupShaderUniforms();
     this.shaderUniforms$.next(this.material.uniforms);
   }
 
-  private onResize = (): void => {
-    const bounds = this.canvas.getBoundingClientRect();
-    const size = Math.min(bounds.width, bounds.height);
 
-    this.resolution = { x: size, y: size };
+  protected setupShaderUniforms(): void {
+    this.material.uniforms = {
+      time: { value: 0.0 },
+      resolution: { value: new THREE.Vector2(this.resolution.x, this.resolution.y) },
+      totalBrightness: { value: this.config.totalBrightness },
+      depth: { value: this.config.depth },
+      numCells: { value: this.config.numCells },
+      tilingPerCell: { value: this.config.tilingPerCell },
+      positionOffset: {
+        value: new THREE.Vector3(
+          this.config.positionOffset.x,
+          this.config.positionOffset.y,
+          this.config.positionOffset.z
+        )
+      },
+      growAndShrinkCells: { value: this.config.growAndShrinkCells },
+      borderStrength: { value: this.config.borderStrength },
+      centerStrength: { value: this.config.centerStrength },
+      centerRadius: { value: this.config.centerRadius },
+      hideFirstCell: { value: this.config.hideFirstCell },
+      hideLastCell: { value: this.config.hideLastCell },
+      cellTwirlStrength: { value: this.config.cellTwirlStrength },
+      cellSpherizeStrength: { value: this.config.cellSpherizeStrength },
+      cellRadialShearStrength: { value: this.config.cellRadialShearStrength },
+      noiseLayerDistortion: {
+        value: new THREE.Vector4(
+          this.config.noiseLayerDistortion.x,
+          this.config.noiseLayerDistortion.y,
+          this.config.noiseLayerDistortion.z,
+          this.config.noiseLayerDistortion.w,
+        )
+      },
+      noiseLayerEnabled: {
+        value: new THREE.Vector4(
+          this.config.noiseLayerEnabled.x,
+          this.config.noiseLayerEnabled.y,
+          this.config.noiseLayerEnabled.z,
+          this.config.noiseLayerEnabled.w,
+        )
+      },
+      noiseLayerInverted: {
+        value: new THREE.Vector4(
+          this.config.noiseLayerInverted.x,
+          this.config.noiseLayerInverted.y,
+          this.config.noiseLayerInverted.z,
+          this.config.noiseLayerInverted.w,
+        )
+      }
+    };
 
-    this.camera.aspect = 1;
-    this.camera.updateProjectionMatrix();
+    for (let i = 0; i < this.config.noiseLayers.length; i++) {
+      const uniformName = `noiseLayer${i + 1}`;
+      const noiseLayer = this.config.noiseLayers[i];
+      const type = noiseTypeToId(noiseLayer.noiseType);
 
-    this.renderer.setSize(size, size);
-  }
+      const vector = new THREE.Vector4(
+        noiseLayer.scale,
+        noiseLayer.power,
+        noiseLayer.angleOffset ?? 0,
+        type
+      );
 
-  public updateShaderUniform(uniformName: string, value: any): void {
-    this.config[uniformName] = value;
-    if (this.material.uniforms[uniformName]) {
-      this.material.uniforms[uniformName].value = value;
-      this.scheduleRender();
-    } else {
-      console.warn("Unknown uniform: " + uniformName);
+      if (!this.material.uniforms[uniformName]) {
+        this.material.uniforms[uniformName] = { value: vector };
+      } else {
+        this.material.uniforms[uniformName].value = vector;
+      }
+
+      const distortion = noiseLayer.distortion;
+      const vectorComponent = mapIndexToVec4Component(i);
+      this.config.noiseLayerDistortion[vectorComponent] = distortion;
+      this.config.noiseLayerEnabled[vectorComponent] = noiseLayer.enabled;
+      this.config.noiseLayerInverted[vectorComponent] = noiseLayer.inverted;
+
+      this.material.uniforms['noiseLayerDistortion'].value = new THREE.Vector4(
+        this.config.noiseLayerDistortion.x,
+        this.config.noiseLayerDistortion.y,
+        this.config.noiseLayerDistortion.z,
+        this.config.noiseLayerDistortion.w,
+      );
+      this.material.uniforms['noiseLayerEnabled'].value = new THREE.Vector4(
+        this.config.noiseLayerEnabled.x,
+        this.config.noiseLayerEnabled.y,
+        this.config.noiseLayerEnabled.z,
+        this.config.noiseLayerEnabled.w,
+      );
+      this.material.uniforms['noiseLayerInverted'].value = new THREE.Vector4(
+        this.config.noiseLayerInverted.x,
+        this.config.noiseLayerInverted.y,
+        this.config.noiseLayerInverted.z,
+        this.config.noiseLayerInverted.w,
+      );
     }
+
+    this.material.needsUpdate = true;
   }
 
   public onNoiseLayerChange(noiseLayer: NoiseLayer): void {
@@ -147,7 +166,6 @@ export class CanvasService {
     this.config.noiseLayerDistortion[vectorComponent] = distortion;
     this.config.noiseLayerEnabled[vectorComponent] = noiseLayer.enabled;
     this.config.noiseLayerInverted[vectorComponent] = noiseLayer.inverted;
-
 
     this.material.uniforms['noiseLayerDistortion'].value.set(
       this.config.noiseLayerDistortion.x,
@@ -178,100 +196,7 @@ export class CanvasService {
     this.scheduleRender();
   }
 
-  private scheduleRender(): void {
-    this.shaderUniforms$.next(this.material.uniforms);
-
-    if (!this.renderPending) {
-      this.renderPending = true;
-      requestAnimationFrame(() => {
-        this.renderer.render(this.scene, this.camera);
-        this.renderPending = false;
-      });
-    }
-  }
-
-  public exportAsPng(): void {
-    this.setCanvasLoading(true);
-
-    setTimeout(() => {
-
-      const resolution = this.getOutputResolution();
-      const renderTarget = new THREE.WebGLRenderTarget(resolution.x, resolution.y, {
-        minFilter: THREE.LinearFilter,
-        magFilter: THREE.LinearFilter,
-        format: THREE.RGBAFormat
-      });
-
-      const originalSize = new THREE.Vector2();
-      this.renderer.getSize(originalSize);
-      const originalRenderTarget = this.renderer.getRenderTarget();
-
-      this.renderer.setRenderTarget(renderTarget);
-      this.renderer.setSize(resolution.x, resolution.y);
-      this.material.uniforms['resolution'].value.set(resolution.x, resolution.y);
-      this.renderer.render(this.scene, this.camera);
-
-      const buffer = new Uint8Array(resolution.x * resolution.y * 4);
-      this.renderer.readRenderTargetPixels(renderTarget, 0, 0, resolution.x, resolution.y, buffer);
-
-      const exportCanvas = document.createElement("canvas");
-      exportCanvas.width = resolution.x;
-      exportCanvas.height = resolution.y;
-      const ctx = exportCanvas.getContext("2d");
-
-      const imageData = ctx.createImageData(resolution.x, resolution.y);
-      imageData.data.set(buffer);
-
-      //webgl texture specific
-      ctx.putImageData(this.flipImageDataY(imageData), 0, 0);
-
-      exportCanvas.toBlob((blob) => {
-        const a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = "noise-texture.png";
-        a.click();
-      }, "image/png");
-
-      this.renderer.setRenderTarget(originalRenderTarget);
-      this.renderer.setSize(originalSize.x, originalSize.y);
-      this.material.uniforms['resolution'].value.set(originalSize.x, originalSize.y);
-      renderTarget.dispose();
-      this.scheduleRender();
-      this.setCanvasLoading(false);
-    }, 100);
-  }
-
-  private flipImageDataY(imageData: ImageData): ImageData {
-    const width = imageData.width;
-    const height = imageData.height;
-    const flipped = new ImageData(width, height);
-
-    for (let y = 0; y < height; y++) {
-      const srcStart = y * width * 4;
-      const destStart = (height - y - 1) * width * 4;
-      flipped.data.set(imageData.data.slice(srcStart, srcStart + width * 4), destStart);
-    }
-
-    return flipped;
-  }
-
   public getShaderConfig(): Observable<ShaderConfig> {
     return this.config$.asObservable();
-  }
-
-  public getOutputResolution(): IVector2 {
-    return this.outputResolution$.value;
-  }
-
-  public updateOutputResolution(res: IVector2): void {
-    return this.outputResolution$.next(res);
-  }
-
-  public getCanvasLoading(): Observable<boolean> {
-    return this.canvasLoading$.asObservable();
-  }
-
-  private setCanvasLoading(loading: boolean): void {
-    this.canvasLoading$.next(loading);
   }
 }
