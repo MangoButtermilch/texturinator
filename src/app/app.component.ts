@@ -6,10 +6,16 @@ import { TerrainGeneratorViewComponent } from './features/terrain-heightmaps/vie
 import { BehaviorSubject } from 'rxjs';
 import { MenuType } from './shared/enum/menu-type.enum';
 import { SettingsService } from './shared/services/settings.service';
+import { NormalMapGeneratorViewComponent } from './features/normal-map-generator/views/normal-map-generator-view/normal-map-generator-view.component';
 
 @Component({
   selector: 'app-root',
-  imports: [TerrainGeneratorViewComponent, VolumeGeneratorViewComponent, CommonModule],
+  imports: [
+    TerrainGeneratorViewComponent,
+    VolumeGeneratorViewComponent,
+    NormalMapGeneratorViewComponent,
+    CommonModule
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -23,7 +29,8 @@ export class AppComponent implements OnInit {
 
   public menus = [
     MenuType.VOLUME_GENERATOR,
-    MenuType.TERRAIN_GENERATOR
+    MenuType.TERRAIN_GENERATOR,
+    MenuType.NORMAL_MAP_GENERATOR
   ];
 
   constructor(private settings: SettingsService) { }
@@ -45,6 +52,7 @@ export class AppComponent implements OnInit {
     switch (menu) {
       case MenuType.VOLUME_GENERATOR: return "Volume Generator";
       case MenuType.TERRAIN_GENERATOR: return "Terrain Generator";
+      case MenuType.NORMAL_MAP_GENERATOR: return "Normal Map Generator";
     }
   }
 
