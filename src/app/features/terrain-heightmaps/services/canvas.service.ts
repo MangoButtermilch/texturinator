@@ -12,7 +12,9 @@ export class CanvasService extends DefaultCanvas {
     super();
   }
 
-  protected async loadShaderAndMaterialConfiguration(): Promise<void> {
+  protected override afterSetup(): void { }
+
+  protected override async loadShaderAndMaterialConfiguration(): Promise<void> {
 
     const noiseLibFiles = await this.shaderLoader.loadShaders(
       {
@@ -42,7 +44,7 @@ export class CanvasService extends DefaultCanvas {
     this.shaderUniforms$.next(this.material.uniforms);
   }
 
-  protected setupShaderUniforms(): void {
+  protected override setupShaderUniforms(): void {
     this.material.uniforms = {
       resolution: { value: new THREE.Vector2(this.resolution.x, this.resolution.y) },
       EROSION_SCALE: { value: 0.15 },

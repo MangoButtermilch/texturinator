@@ -1,0 +1,11 @@
+@for (slider of sliders; track $index) {
+    <app-slider
+    [config]="slider"
+    (onValueChange)="onSliderChange($event)"
+    ></app-slider>
+} @for (checkbox of checkboxes; track $index) {
+    <app-checkbox
+    [config]="checkbox"
+    (onValueChange)="onCheckboxChange($event)"
+    ></app-checkbox>
+}

@@ -28,11 +28,6 @@
         margin: var(--marginSm);
         border: 2px dashed var(--colorUi);
     }
-    app-canvas {
-        display: block;
-        width: 100%;
-        height: 100%;
-    }
     .btn-wrap {
         display: flex;
         margin-top: var(--marginSm);
@@ -44,12 +39,27 @@
             margin-right: calc(var(--marginSm) * 2);
         }
     }
+
+    .canvas-wrap {
+        position: relative;
+        .canvas-hint {
+            position: absolute;
+            background-color: var(--colorUiBackground);
+            inset: 0;
+            margin: auto;
+            width: fit-content;
+            height: fit-content;
+            padding: var(--paddingSm);
+            font-size: var(--fontSizeXl);
+            cursor: grab;
+            z-index: 1;
+        }
+    }
 }
 
 .toggler {
     display: none;
 }
-
 
 @media screen and (max-width: 1430px) {
     .toggler {

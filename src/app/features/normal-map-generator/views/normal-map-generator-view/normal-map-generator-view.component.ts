@@ -10,6 +10,8 @@ import { ButtonComponent } from '../../../../shared/components/button/button.com
 import { CommonModule } from '@angular/common';
 import { CanvasComponent } from '../../../../shared/components/canvas/canvas.component';
 import { CanvasService } from '../../services/canvas.service';
+import { TextureSettingsComponent } from '../../components/settings/texture-settings/texture-settings.component';
+import { NormalMapSettingsComponent } from '../../components/settings/normal-map-settings/normal-map-settings.component';
 
 @Component({
   selector: 'app-normal-map-generator-view',
@@ -17,13 +19,16 @@ import { CanvasService } from '../../services/canvas.service';
     ButtonComponent,
     CommonModule,
     CanvasComponent,
-],
+    TextureSettingsComponent,
+    NormalMapSettingsComponent
+  ],
   templateUrl: './normal-map-generator-view.component.html',
   styleUrl: './normal-map-generator-view.component.scss'
 })
-export class NormalMapGeneratorViewComponent  {
+export class NormalMapGeneratorViewComponent {
   DialogSize = DialogSize;
 
+  public showHint$ = this.canvasService.getShowHint();
   public previewBtn: Button;
   public exportRawBtn: Button;
   public exportPngBtn: Button;

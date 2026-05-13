@@ -24,6 +24,7 @@ export abstract class DefaultCanvas {
 
     protected abstract setupShaderUniforms(): void;
     protected abstract loadShaderAndMaterialConfiguration(): Promise<void>;
+    protected abstract afterSetup(): void;
 
     public async setup(element: HTMLCanvasElement): Promise<void> {
         requestAnimationFrame(() => { this.setCanvasLoading(true); })
@@ -54,6 +55,7 @@ export abstract class DefaultCanvas {
         this.scene.add(quad);
         this.scheduleRender();
 
+        this.afterSetup();
         this.setCanvasLoading(false);
     }
 
