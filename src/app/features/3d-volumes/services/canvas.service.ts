@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import * as THREE from 'three';
 import { DefaultCanvas } from '../../../core/services/default-canvas.class';
 import { ShaderLoaderService } from '../../../shared/services/shader-loader.service';
-import { defaultConfig, NoiseLayer, ShaderConfig } from '../interfaces/shader-configs.interfaces';
 import { mapIndexToVec4Component, noiseTypeToId } from '../utils/shader.utils';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ShaderConfig, defaultConfig, NoiseLayer, logoConfig } from '../interfaces/shader-configs.interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CanvasService extends DefaultCanvas {
 
-  private config: ShaderConfig = defaultConfig;
+  private config$ = new BehaviorSubject<ShaderConfig>(logoConfig);
+  private config: ShaderConfig = logoConfig;
 
   constructor(private shaderLoader: ShaderLoaderService) {
     super();
@@ -91,18 +92,18 @@ export class CanvasService extends DefaultCanvas {
       },
       noiseLayerEnabled: {
         value: new THREE.Vector4(
-          this.config.noiseLayerDistortion.x,
-          this.config.noiseLayerDistortion.y,
-          this.config.noiseLayerDistortion.z,
-          this.config.noiseLayerDistortion.w,
+          this.config.noiseLayerEnabled.x,
+          this.config.noiseLayerEnabled.y,
+          this.config.noiseLayerEnabled.z,
+          this.config.noiseLayerEnabled.w,
         )
       },
       noiseLayerInverted: {
         value: new THREE.Vector4(
-          this.config.noiseLayerDistortion.x,
-          this.config.noiseLayerDistortion.y,
-          this.config.noiseLayerDistortion.z,
-          this.config.noiseLayerDistortion.w,
+          this.config.noiseLayerInverted.x,
+          this.config.noiseLayerInverted.y,
+          this.config.noiseLayerInverted.z,
+          this.config.noiseLayerInverted.w,
         )
       }
     };
@@ -166,7 +167,6 @@ export class CanvasService extends DefaultCanvas {
     this.config.noiseLayerEnabled[vectorComponent] = noiseLayer.enabled;
     this.config.noiseLayerInverted[vectorComponent] = noiseLayer.inverted;
 
-
     this.material.uniforms['noiseLayerDistortion'].value.set(
       this.config.noiseLayerDistortion.x,
       this.config.noiseLayerDistortion.y,
@@ -194,5 +194,9 @@ export class CanvasService extends DefaultCanvas {
       type
     );
     this.scheduleRender();
+  }
+
+  public getShaderConfig(): Observable<ShaderConfig> {
+    return this.config$.asObservable();
   }
 }

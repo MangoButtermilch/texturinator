@@ -1,34 +1,21 @@
-import { Component, OnInit } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faAdd } from '@fortawesome/free-solid-svg-icons';
-import { Button } from '../../../../../../shared/components/button/classes/button.class';
-import { IconPosition } from '../../../../../../shared/components/button/enum/button.enum';
-import { defaultNoiseLayerConfig } from '../../../../interfaces/shader-configs.interfaces';
-import { UiFactoryService } from '../../../../../../shared/services/ui-factory.service';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { CanvasService } from '../../../../services/canvas.service';
 import { NoiseLayerComponent } from './components/noise-layer/noise-layer.component';
 
 
 @Component({
   selector: 'app-noise-settings',
-  imports: [NoiseLayerComponent, FontAwesomeModule],
+  imports: [NoiseLayerComponent, CommonModule],
   templateUrl: './noise-settings.component.html',
   styleUrl: './noise-settings.component.scss'
 })
-export class NoiseSettingsComponent implements OnInit {
+export class NoiseSettingsComponent {
 
-  public addButton: Button;
-  public noiseLayers = defaultNoiseLayerConfig;
+  public noiseLayers$ = this.canvasService.getShaderConfig();
 
   constructor(
-    private uiFactory: UiFactoryService
+    private canvasService: CanvasService
   ) { }
 
-  ngOnInit(): void {
-    this.addButton = this.uiFactory.buildButton(
-      "Add",
-      "btn-success",
-      faAdd,
-      IconPosition.RIGHT
-    )
-  }
 }
