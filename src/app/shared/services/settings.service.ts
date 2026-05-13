@@ -7,7 +7,7 @@ export class SettingsService {
 
   constructor() { }
 
-  public setLocalSetting(key: string, value: string): void {
+  public saveLocalSetting(key: string, value: string): void {
     localStorage.setItem(key, value);
   }
 
