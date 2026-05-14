@@ -27,36 +27,42 @@ export abstract class DefaultCanvas {
     protected abstract afterSetup(): void;
 
     public async setup(element: HTMLCanvasElement): Promise<void> {
-        requestAnimationFrame(() => { this.setCanvasLoading(true); })
+        return new Promise(resolve => {
+            requestAnimationFrame(async () => {
+                this.setCanvasLoading(true);
 
-        this.canvas = element;
-        const bounds = this.canvas.getBoundingClientRect();
-        const size = Math.min(bounds.width, bounds.height);
+                this.canvas = element;
+                const bounds = this.canvas.getBoundingClientRect();
+                const size = Math.min(bounds.width, bounds.height);
 
-        this.resolution = { x: size, y: size };
+                this.resolution = { x: size, y: size };
 
-        this.scene = new THREE.Scene();
+                this.scene = new THREE.Scene();
 
-        this.camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);  // aspect=1
-        this.camera.position.set(0, 0, 5);
-        this.camera.updateProjectionMatrix();
+                this.camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);  // aspect=1
+                this.camera.position.set(0, 0, 5);
+                this.camera.updateProjectionMatrix();
 
-        this.renderer = new THREE.WebGLRenderer({
-            canvas: this.canvas,
-            antialias: true,
-            alpha: false
+                this.renderer = new THREE.WebGLRenderer({
+                    canvas: this.canvas,
+                    antialias: true,
+                    alpha: false
+                });
+                this.renderer.setSize(size, size);
+
+                await this.loadShaderAndMaterialConfiguration();
+                
+                const geometry = new THREE.PlaneGeometry(2, 2);
+                const quad = new THREE.Mesh(geometry, this.material);
+
+                this.scene.add(quad);
+                this.scheduleRender();
+
+                this.afterSetup();
+                this.setCanvasLoading(false);
+                resolve();
+            });
         });
-        this.renderer.setSize(size, size);
-
-        await this.loadShaderAndMaterialConfiguration();
-        const geometry = new THREE.PlaneGeometry(2, 2);
-        const quad = new THREE.Mesh(geometry, this.material);
-
-        this.scene.add(quad);
-        this.scheduleRender();
-
-        this.afterSetup();
-        this.setCanvasLoading(false);
     }
 
     public getCanvasLoading(): Observable<boolean> {
