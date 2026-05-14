@@ -40,12 +40,12 @@ export class AppComponent implements OnInit {
   }
 
   private loadLastMenu(): void {
-    const storedMenu = this.settings.getLocalSetting(this.lastMenuSetting);
+    const storedMenu = this.settings.getSessionSetting(this.lastMenuSetting);
     if (storedMenu) {
       this.currentMenu$.next(storedMenu as MenuType);
       return;
     }
-    this.settings.saveLocalSetting(this.lastMenuSetting, this.currentMenu$.value);
+    this.settings.saveSessionSetting(this.lastMenuSetting, this.currentMenu$.value);
   }
 
   public getLabelForMenuItem(menu: MenuType) {
@@ -57,7 +57,7 @@ export class AppComponent implements OnInit {
   }
 
   public switchTab(menu: MenuType) {
-    this.settings.saveLocalSetting(this.lastMenuSetting, menu);
+    this.settings.saveSessionSetting(this.lastMenuSetting, menu);
     this.currentMenu$.next(menu);
   }
 }
