@@ -1,0 +1,10 @@
+.texture-wrap {
+    display: flex;
+    align-items: center;
+    app-input {
+        display: block;
+        &:first-of-type {
+            margin-right: var(--marginSm);
+        }
+    }
+}

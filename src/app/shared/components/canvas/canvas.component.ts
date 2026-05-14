@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ElementRef, OnDestroy, ViewChild } from '@angular/core';
-import { CanvasService } from '../../services/canvas.service';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
+import { DefaultCanvas } from '../../../core/services/default-canvas.class';
 
 @Component({
   selector: 'app-canvas',
@@ -7,12 +7,12 @@ import { CanvasService } from '../../services/canvas.service';
   templateUrl: './canvas.component.html',
   styleUrl: './canvas.component.scss'
 })
-
 export class CanvasComponent implements AfterViewInit, OnDestroy {
 
+  @Input() canvasService: DefaultCanvas | undefined = undefined;
   @ViewChild('canvasElement') canvasElement: ElementRef<HTMLCanvasElement>;
 
-  constructor(private canvasService: CanvasService) { }
+  constructor() { }
 
   ngAfterViewInit(): void {
     this.canvasService.setup(this.canvasElement.nativeElement);

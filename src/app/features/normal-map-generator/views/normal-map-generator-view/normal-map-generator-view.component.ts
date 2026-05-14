@@ -1,38 +1,34 @@
 import { Component } from '@angular/core';
-import { CanvasService } from '../../services/canvas.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Observable, startWith } from 'rxjs';
-import { CommonModule } from '@angular/common';
-import { NoiseSettingsComponent } from "../../components/settings/components/noise-settings/noise-settings.component";
-import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { faEye, faSave, faClose, faBars } from '@fortawesome/free-solid-svg-icons';
+import { Observable, startWith } from 'rxjs';
 import { Button } from '../../../../shared/components/button/classes/button.class';
 import { IconPosition } from '../../../../shared/components/button/enum/button.enum';
 import { DialogSize } from '../../../../shared/components/dialog/enum/dialog-size.enum';
 import { UiFactoryService } from '../../../../shared/services/ui-factory.service';
-import { TextureSettingsComponent } from '../../components/settings/components/texture-settings/texture-settings.component';
-import { TerrainSettingsComponent } from '../../components/settings/components/terrain-settings/terrain-settings.component';
-import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
+import { ButtonComponent } from '../../../../shared/components/button/button.component';
+import { CommonModule } from '@angular/common';
 import { CanvasComponent } from '../../../../shared/components/canvas/canvas.component';
+import { CanvasService } from '../../services/canvas.service';
+import { TextureSettingsComponent } from '../../components/settings/texture-settings/texture-settings.component';
+import { NormalMapSettingsComponent } from '../../components/settings/normal-map-settings/normal-map-settings.component';
 
 @Component({
-  selector: 'app-terrain-generator-view',
+  selector: 'app-normal-map-generator-view',
   imports: [
-    CanvasComponent,
-    CommonModule,
-    NoiseSettingsComponent,
     ButtonComponent,
+    CommonModule,
+    CanvasComponent,
     TextureSettingsComponent,
-    TerrainSettingsComponent,
-    DialogComponent
+    NormalMapSettingsComponent
   ],
-  templateUrl: './terrain-generator-view.component.html',
-  styleUrl: './terrain-generator-view.component.scss'
+  templateUrl: './normal-map-generator-view.component.html',
+  styleUrl: './normal-map-generator-view.component.scss'
 })
-export class TerrainGeneratorViewComponent {
-
+export class NormalMapGeneratorViewComponent {
   DialogSize = DialogSize;
 
+  public showHint$ = this.canvasService.getShowHint();
   public previewBtn: Button;
   public exportRawBtn: Button;
   public exportPngBtn: Button;

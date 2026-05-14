@@ -18,7 +18,9 @@ export class CanvasService extends DefaultCanvas {
     super();
   }
 
-  protected async loadShaderAndMaterialConfiguration(): Promise<void> {
+  protected override afterSetup(): void { }
+
+  protected override async loadShaderAndMaterialConfiguration(): Promise<void> {
     const noiseLibFiles = await this.shaderLoader.loadShaders(
       {
         noiseUtils: "/assets/shaders/lib/noise/0-noise-utils.glsl",
@@ -58,7 +60,7 @@ export class CanvasService extends DefaultCanvas {
   }
 
 
-  protected setupShaderUniforms(): void {
+  protected override setupShaderUniforms(): void {
     this.material.uniforms = {
       time: { value: 0.0 },
       resolution: { value: new THREE.Vector2(this.resolution.x, this.resolution.y) },

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CanvasComponent } from './canvas.component';
+import { TextureSettingsComponent } from './texture-settings.component';
 
-describe('CanvasComponent', () => {
-  let component: CanvasComponent;
-  let fixture: ComponentFixture<CanvasComponent>;
+describe('TextureSettingsComponent', () => {
+  let component: TextureSettingsComponent;
+  let fixture: ComponentFixture<TextureSettingsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CanvasComponent]
+      imports: [TextureSettingsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CanvasComponent);
+    fixture = TestBed.createComponent(TextureSettingsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

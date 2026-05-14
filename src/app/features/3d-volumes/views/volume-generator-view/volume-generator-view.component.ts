@@ -10,11 +10,11 @@ import { CanvasService } from '../../services/canvas.service';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
-import { CanvasComponent } from '../../components/canvas/canvas.component';
 import { MainSettingsComponent } from '../../components/settings/components/main-settings/main-settings.component';
 import { NoiseSettingsComponent } from '../../components/settings/components/noise-settings/noise-settings.component';
 import { TextureSettingsComponent } from '../../components/settings/components/texture-settings/texture-settings.component';
 import { VolumePreviewComponent } from '../../components/volume-preview/volume-preview.component';
+import { CanvasComponent } from '../../../../shared/components/canvas/canvas.component';
 
 @Component({
   selector: 'app-volume-generator-view',
@@ -50,7 +50,7 @@ export class VolumeGeneratorViewComponent implements OnInit {
 
   constructor(
     private uiFactory: UiFactoryService,
-    private canvasService: CanvasService) { }
+    public canvasService: CanvasService) { }
 
   ngOnInit(): void {
     this.previewBtn = this.uiFactory.buildButton(

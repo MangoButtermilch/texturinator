@@ -26,7 +26,7 @@
     section {
         padding: var(--paddingSm);
         margin: var(--marginSm);
-        border: 2px dashed var(--colorUiBackground);
+        border: 2px dashed var(--colorUi);
     }
     .btn-wrap {
         display: flex;
@@ -37,6 +37,22 @@
         }
         .export-btn {
             margin-right: calc(var(--marginSm) * 2);
+        }
+    }
+
+    .canvas-wrap {
+        position: relative;
+        .canvas-hint {
+            position: absolute;
+            background-color: var(--colorUiBackground);
+            inset: 0;
+            margin: auto;
+            width: fit-content;
+            height: fit-content;
+            padding: var(--paddingSm);
+            font-size: var(--fontSizeXl);
+            cursor: grab;
+            z-index: 1;
         }
     }
 }
@@ -60,8 +76,8 @@
         top: 0;
         z-index: 1;
         width: fit-content;
-        top: var(--navbarHeight);
         height: calc(100svh - var(--navbarHeight));
+        top: var(--navbarHeight);
         left: 0;
         transform: translateX(-100%);
         transition: transform var(--transitionSpeed) ease-in-out;
