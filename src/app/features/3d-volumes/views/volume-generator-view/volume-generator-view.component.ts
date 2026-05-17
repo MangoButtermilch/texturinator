@@ -6,7 +6,7 @@ import { Button } from '../../../../shared/components/button/classes/button.clas
 import { IconPosition } from '../../../../shared/components/button/enum/button.enum';
 import { DialogSize } from '../../../../shared/components/dialog/enum/dialog-size.enum';
 import { UiFactoryService } from '../../../../shared/services/ui-factory.service';
-import { CanvasService } from '../../services/canvas.service';
+import { VolumeService } from '../../services/volume-service';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
@@ -50,7 +50,7 @@ export class VolumeGeneratorViewComponent implements OnInit {
 
   constructor(
     private uiFactory: UiFactoryService,
-    public canvasService: CanvasService) { }
+    public canvasService: VolumeService) { }
 
   ngOnInit(): void {
     this.previewBtn = this.uiFactory.buildButton(

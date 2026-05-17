@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
-import { DefaultCanvas } from '../../../core/services/default-canvas.class';
 import { ShaderLoaderService } from '../../../shared/services/shader-loader.service';
 import { mapIndexToVec4Component, noiseTypeToId } from '../utils/shader.utils';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ShaderConfig, defaultConfig, NoiseLayer, logoConfig } from '../interfaces/shader-configs.interfaces';
+import { BaseCanvasService } from '../../../core/services/base-canvas-service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CanvasService extends DefaultCanvas {
+export class VolumeService extends BaseCanvasService {
 
   private config$ = new BehaviorSubject<ShaderConfig>(defaultConfig);
   private config: ShaderConfig = defaultConfig;

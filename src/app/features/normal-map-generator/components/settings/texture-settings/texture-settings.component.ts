@@ -5,7 +5,7 @@ import { Slider } from '../../../../../shared/components/slider/classes/slider.c
 import { UiFactoryService } from '../../../../../shared/services/ui-factory.service';
 import { getMaxTextureSize } from '../../../../../shared/utils/webgl.utils';
 import { IVector2 } from '../../../../3d-volumes/interfaces/shader-configs.interfaces';
-import { CanvasService } from '../../../services/canvas.service';
+import { HeightmapGeneratorService } from '../../../services/heightmap-generator-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 
@@ -29,7 +29,7 @@ export class TextureSettingsComponent implements OnInit {
 
   constructor(
     private uiFactory: UiFactoryService,
-    private canvasService: CanvasService
+    private canvasService: HeightmapGeneratorService
   ) { }
 
   ngOnInit(): void {

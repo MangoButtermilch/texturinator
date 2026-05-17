@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, Subscription, take } from 'rxjs';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
-import { CanvasService } from './canvas.service';
+import { VolumeService } from './volume-service';
 import { IUniform } from 'three';
 import { IVector2 } from '../interfaces/shader-configs.interfaces';
 import { ShaderLoaderService } from '../../../shared/services/shader-loader.service';
@@ -38,7 +38,7 @@ export class VolumePreviewService {
   private quad: THREE.Mesh = null;
 
   constructor(
-    private canvasService: CanvasService,
+    private canvasService: VolumeService,
     private shaderLoader: ShaderLoaderService) {
     this.handleShaderUniforms();
     this.handleOnInit();

@@ -9,7 +9,7 @@ import { UiFactoryService } from '../../../../shared/services/ui-factory.service
 import { ButtonComponent } from '../../../../shared/components/button/button.component';
 import { CommonModule } from '@angular/common';
 import { CanvasComponent } from '../../../../shared/components/canvas/canvas.component';
-import { CanvasService } from '../../services/canvas.service';
+import { HeightmapGeneratorService } from '../../services/heightmap-generator-service';
 import { TextureSettingsComponent } from '../../components/settings/texture-settings/texture-settings.component';
 import { NormalMapSettingsComponent } from '../../components/settings/normal-map-settings/normal-map-settings.component';
 
@@ -45,7 +45,7 @@ export class NormalMapGeneratorViewComponent {
 
   constructor(
     private uiFactory: UiFactoryService,
-    public canvasService: CanvasService) { }
+    public canvasService: HeightmapGeneratorService) { }
 
   ngOnInit(): void {
     this.previewBtn = this.uiFactory.buildButton(

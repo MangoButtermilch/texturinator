@@ -8,7 +8,7 @@ import { SliderComponent } from '../../../../../../shared/components/slider/slid
 import { ShaderConfig, IVector2 } from '../../../../interfaces/shader-configs.interfaces';
 import { UiFactoryService } from '../../../../../../shared/services/ui-factory.service';
 import { getMaxTextureSize } from '../../../../../../shared/utils/webgl.utils';
-import { CanvasService } from '../../../../services/canvas.service';
+import { VolumeService } from '../../../../services/volume-service';
 
 
 @Component({
@@ -33,7 +33,7 @@ export class TextureSettingsComponent implements OnInit {
 
   constructor(
     private uiFactory: UiFactoryService,
-    private canvasService: CanvasService
+    private canvasService: VolumeService
   ) { }
 
   ngOnInit(): void {

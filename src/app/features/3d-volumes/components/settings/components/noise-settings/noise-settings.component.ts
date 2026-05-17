@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { CanvasService } from '../../../../services/canvas.service';
+import { VolumeService } from '../../../../services/volume-service';
 import { NoiseLayerComponent } from './components/noise-layer/noise-layer.component';
 
 
@@ -15,7 +15,7 @@ export class NoiseSettingsComponent {
   public noiseLayers$ = this.canvasService.getShaderConfig();
 
   constructor(
-    private canvasService: CanvasService
+    private canvasService: VolumeService
   ) { }
 
 }

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
-import { DefaultCanvas } from '../../../core/services/default-canvas.class';
 import { ShaderLoaderService } from '../../../shared/services/shader-loader.service';
+import { BaseCanvasService } from '../../../core/services/base-canvas-service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CanvasService extends DefaultCanvas {
+export class TerrainHeightmapService extends BaseCanvasService {
 
   constructor(private shaderLoader: ShaderLoaderService) {
     super();
