@@ -13,7 +13,7 @@ https://acetix.itch.io/pseudo-volume-generator
 
 ## Try the Live Version
 
-https://pseudo-volume-generator.buttermilch-dev.de
+https://texturinator.buttermilch-dev.de
 
 ---
 
