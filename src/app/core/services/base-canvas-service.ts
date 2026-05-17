@@ -25,6 +25,7 @@ export abstract class BaseCanvasService {
     protected abstract setupShaderUniforms(): void;
     protected abstract loadShaderAndMaterialConfiguration(): Promise<void>;
     protected abstract afterSetup(): void;
+    protected abstract afterUniformUpdated(name: string, value: any);
 
     public async setup(element: HTMLCanvasElement): Promise<void> {
         return new Promise(resolve => {
@@ -76,6 +77,7 @@ export abstract class BaseCanvasService {
     public updateShaderUniform(uniformName: string, value: any): void {
         if (this.material.uniforms[uniformName]) {
             this.material.uniforms[uniformName].value = value;
+            this.afterUniformUpdated(uniformName, value);
             this.scheduleRender();
         } else {
             console.warn("Unknown uniform: " + uniformName);

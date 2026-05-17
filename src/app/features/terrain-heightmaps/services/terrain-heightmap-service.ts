@@ -44,6 +44,23 @@ export class TerrainHeightmapService extends BaseCanvasService {
     this.shaderUniforms$.next(this.material.uniforms);
   }
 
+  protected override afterUniformUpdated(name: string, value: any) {
+    this.updateCreaseAndRidgeRounding(name, value);
+  }
+
+  private updateCreaseAndRidgeRounding(name: string, value: any): void {
+    const ridgeRounding = this.material.uniforms['ridgeRounding'].value;
+    const creaseRounding = this.material.uniforms['creaseRounding'].value;
+
+    if (name === "ridgeRounding") {
+      this.material.uniforms['EROSION_ROUNDING'].value = new THREE.Vector4(value, creaseRounding, 0.1, 0.2);
+      return;
+    }
+    if (name === "creaseRounding") {
+      this.material.uniforms['EROSION_ROUNDING'].value = new THREE.Vector4(ridgeRounding, value, 0.1, 0.2);
+    }
+  }
+
   protected override setupShaderUniforms(): void {
     this.material.uniforms = {
       resolution: { value: new THREE.Vector2(this.resolution.x, this.resolution.y) },
@@ -52,9 +69,9 @@ export class TerrainHeightmapService extends BaseCanvasService {
       EROSION_GULLY_WEIGHT: { value: 0.5 },
       EROSION_DETAIL: { value: 1.5 },
       ridgeRounding: { value: 0.1 },
-      creaseRounding: { value: 0.0 },
-      //last two parameters = ridgeRound & creaseRounding
-      EROSION_ROUNDING: { value: new THREE.Vector4(0.1, 0.0, 0.1, 2.0) },
+      creaseRounding: { value: 2.0 },
+      //first two parameters = ridgeRound & creaseRounding
+      EROSION_ROUNDING: { value: new THREE.Vector4(0.1, 2.0, 0.1, 0.2) },
       EROSION_ONSET: { value: new THREE.Vector4(1.25, 1.25, 2.8, 1.5) },
       EROSION_ASSUMED_SLOPE: { value: new THREE.Vector2(0.7, 1.0) },
       EROSION_CELL_SCALE: { value: 0.7 },
