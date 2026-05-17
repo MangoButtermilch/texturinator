@@ -1,50 +1,3 @@
-.settings {
-    &.loading {
-        filter: opacity(0.5) brightness(0.5);
-        pointer-events: none !important;
-    }
-    height: 100%;
-    display: flex;
-    justify-content: start;
-    flex-wrap: nowrap;
-
-    .settings-wrap {
-        display: flex;
-    }
-
-    .main-settings,
-    .secondary-settings {
-        width: fit-content;
-        width: 280px;
-        height: 100%;
-        background-color: #555;
-    }
-
-    .secondary-settings {
-        background-color: #444;
-    }
-    section {
-        padding: var(--paddingSm);
-        margin: var(--marginSm);
-        border: 2px dashed var(--colorUi);
-    }
-    .btn-wrap {
-        display: flex;
-        margin-top: var(--marginSm);
-        .export-btn,
-        .preview-btn {
-            display: block;
-        }
-        .export-btn {
-            margin-right: calc(var(--marginSm) * 2);
-        }
-    }
-}
-
-.toggler {
-    display: none;
-}
-
 .hint {
     margin-top: calc(var(--marginSm) * 2);
     display: block;
@@ -53,36 +6,5 @@
 
     a,p {
         color: var(--colorSuccessHover);
-    }
-}
-
-@media screen and (max-width: 1430px) {
-    .toggler {
-        display: block;
-        position: absolute;
-        z-index: 2;
-    }
-    .settings-wrap {
-        display: flex;
-        flex-direction: column;
-        overflow-y: auto;
-        overflow-x: clip;
-        position: absolute;
-        top: 0;
-        z-index: 1;
-        width: fit-content;
-        height: calc(100svh - var(--navbarHeight));
-        top: var(--navbarHeight);
-        left: 0;
-        transform: translateX(-100%);
-        transition: transform var(--transitionSpeed) ease-in-out;
-
-        &.open {
-            transform: translateX(0%);
-        }
-        .main-settings,
-        .secondary-settings {
-            width: 100%;
-        }
     }
 }

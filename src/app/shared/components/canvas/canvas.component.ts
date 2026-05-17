@@ -12,8 +12,6 @@ export class CanvasComponent implements AfterViewInit, OnDestroy {
   @Input() canvasService: DefaultCanvas | undefined = undefined;
   @ViewChild('canvasElement') canvasElement: ElementRef<HTMLCanvasElement>;
 
-  constructor() { }
-
   ngAfterViewInit(): void {
     this.canvasService.setup(this.canvasElement.nativeElement);
   }

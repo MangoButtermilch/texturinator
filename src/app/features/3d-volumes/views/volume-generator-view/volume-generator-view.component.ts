@@ -29,7 +29,7 @@ import { CanvasComponent } from '../../../../shared/components/canvas/canvas.com
     VolumePreviewComponent
   ],
   templateUrl: './volume-generator-view.component.html',
-  styleUrl: './volume-generator-view.component.scss'
+  styleUrls: ['./volume-generator-view.component.scss', '../../../../shared/scss/settings.scss']
 })
 export class VolumeGeneratorViewComponent implements OnInit {
 
