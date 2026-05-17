@@ -6,6 +6,7 @@ import { UiFactoryService } from '../../../../../shared/services/ui-factory.serv
 import { getMaxTextureSize } from '../../../../../shared/utils/webgl.utils';
 import { IVector2 } from '../../../../3d-volumes/interfaces/shader-configs.interfaces';
 import { CanvasService } from '../../../services/canvas.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 
 @Component({
@@ -15,6 +16,9 @@ import { CanvasService } from '../../../services/canvas.service';
   styleUrl: './texture-settings.component.scss'
 })
 export class TextureSettingsComponent implements OnInit {
+
+  public outputResolutionDisplay$ = this.canvasService.getOutputResolutionDisplay()
+    .pipe(takeUntilDestroyed());
 
   public maxTextureSize: number = 0;
 
@@ -37,6 +41,20 @@ export class TextureSettingsComponent implements OnInit {
       { min: 32, max: getMaxTextureSize() });
 
     this.maxTextureSize = getMaxTextureSize();
+
+    this.outputResolutionDisplay$.subscribe((resolution) => {
+      this.inputTextureSizeX = null;
+      this.inputTextureSizeY = null;
+
+      //give angular time to re render components
+      setTimeout(() => {
+        this.inputTextureSizeX = this.uiFactory.buildInput("x:", "textureSizeX", resolution.x,
+          { min: 32, max: getMaxTextureSize() });
+        this.inputTextureSizeY = this.uiFactory.buildInput("y:", "textureSizeY", resolution.y,
+          { min: 32, max: getMaxTextureSize() });
+
+      }, 1);
+    });
   }
 
   public updateOutputResolutionX(value: string | number): void {

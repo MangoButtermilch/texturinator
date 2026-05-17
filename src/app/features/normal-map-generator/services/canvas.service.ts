@@ -2,14 +2,17 @@ import { Injectable } from '@angular/core';
 import * as THREE from 'three';
 import { DefaultCanvas } from '../../../core/services/default-canvas.class';
 import { ShaderLoaderService } from '../../../shared/services/shader-loader.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { IVector2 } from '../../3d-volumes/interfaces/shader-configs.interfaces';
+import { getMaxTextureSize } from '../../../shared/utils/webgl.utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CanvasService extends DefaultCanvas {
 
-  protected showHint$ = new BehaviorSubject<boolean>(true);
+  private showHint$ = new BehaviorSubject<boolean>(true);
+  private updateOutputResolutionDisplay$ = new Subject<IVector2>();
 
   constructor(private shaderLoader: ShaderLoaderService) {
     super();
@@ -59,9 +62,14 @@ export class CanvasService extends DefaultCanvas {
 
       const reader = new FileReader();
       reader.onload = (event) => {
+        const maxSize = getMaxTextureSize();
         const img = new Image();
         img.onload = () => {
           const texture = new THREE.Texture(img);
+          if (texture.width > maxSize || texture.height > maxSize) {
+            texture.dispose();
+            return;
+          }
           texture.needsUpdate = true;
           this.updateImageTexture(texture);
         };
@@ -74,6 +82,14 @@ export class CanvasService extends DefaultCanvas {
 
   private updateImageTexture(texture: THREE.Texture): void {
     this.showHint$.next(false);
+
+    this.canvas.style.width = texture.width + "px";
+    this.canvas.style.height = texture.height + "px";
+    this.canvas.style.aspectRatio = "unset";
+    this.updateOutputResolutionDisplay$.next({ x: texture.width, y: texture.height });
+    this.updateOutputResolution({ x: texture.width, y: texture.height });
+    this.updateResolutionAndCameraProjection();
+
     this.material.uniforms['imageTexture'].value = texture;
     this.material.uniforms['imageSize'].value = new THREE.Vector2(texture.width, texture.height);
     this.scheduleRender();
@@ -81,6 +97,10 @@ export class CanvasService extends DefaultCanvas {
 
   public getShowHint(): Observable<boolean> {
     return this.showHint$.asObservable();
+  }
+
+  public getOutputResolutionDisplay(): Observable<IVector2> {
+    return this.updateOutputResolutionDisplay$.asObservable();
   }
 }
 
