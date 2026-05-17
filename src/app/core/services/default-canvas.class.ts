@@ -51,7 +51,7 @@ export abstract class DefaultCanvas {
                 this.renderer.setSize(size, size);
 
                 await this.loadShaderAndMaterialConfiguration();
-                
+
                 const geometry = new THREE.PlaneGeometry(2, 2);
                 const quad = new THREE.Mesh(geometry, this.material);
 
@@ -87,7 +87,7 @@ export abstract class DefaultCanvas {
         this.renderer?.dispose();
     }
 
-    private onResize = (): void => {
+    protected onResize = (): void => {
         const bounds = this.canvas.getBoundingClientRect();
         const size = Math.min(bounds.width, bounds.height);
 
@@ -97,6 +97,14 @@ export abstract class DefaultCanvas {
         this.camera.updateProjectionMatrix();
 
         this.renderer.setSize(size, size);
+    }
+
+    protected updateResolutionAndCameraProjection(): void {
+        const bounds = this.canvas.getBoundingClientRect();
+        const size = Math.min(bounds.width, bounds.height);
+        this.resolution = { x: size, y: size };
+        this.camera.aspect = 1;
+        this.camera.updateProjectionMatrix();
     }
 
     public async exportAsRaw16(): Promise<void> {
