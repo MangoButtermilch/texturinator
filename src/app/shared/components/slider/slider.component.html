@@ -22,7 +22,16 @@
       type="range"
       (input)="onInput($event)"
     />
-    <p class="slider-value">{{ getSliderValue().toFixed(2) }}</p>
+    @if (!showInputField) {
+      <p class="slider-value" (dblclick)="onShowInputField()">{{ getSliderValue().toFixed(2) }}</p>
+    } @else  {
+      <input 
+         class="slider-value-input" 
+         #inputElement
+         value="{{this.config.value.toFixed(2)}}"
+         (dblclick)="submitInputField($event)"
+         (keydown.enter)="submitInputField($event)"/>
+    }
   </div>
 
 }

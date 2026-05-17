@@ -62,6 +62,17 @@
         font-size: var(--fontSizeMd);
         margin-left: var(--marginSm);
     }
+
+    .slider-value-input {
+        border-radius: 0px;
+        outline: none;
+        border: none;
+        height: 30px;
+        width: 50px;
+        color: var(--colorText);
+        font-size: var(--fontSizeMd);
+        margin-left: var(--marginSm);
+    }
 }
 label {
     margin-bottom: var(--marginSm);
