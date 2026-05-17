@@ -5,7 +5,7 @@ import { IVector2 } from '../../features/3d-volumes/interfaces/shader-configs.in
 import { exportAsPng8, exportAsRaw16 } from '../../shared/utils/canvas.utils';
 import { IUniform } from 'three';
 
-export abstract class DefaultCanvas {
+export abstract class BaseCanvasService {
 
     protected canvas: HTMLCanvasElement = null;
     protected scene: THREE.Scene;

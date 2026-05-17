@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import * as THREE from 'three';
-import { DefaultCanvas } from '../../../core/services/default-canvas.class';
 import { ShaderLoaderService } from '../../../shared/services/shader-loader.service';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { IVector2 } from '../../3d-volumes/interfaces/shader-configs.interfaces';
 import { getMaxTextureSize } from '../../../shared/utils/webgl.utils';
+import { BaseCanvasService } from '../../../core/services/base-canvas-service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class HeightmapGeneratorService extends DefaultCanvas {
+export class HeightmapGeneratorService extends BaseCanvasService {
 
   private showHint$ = new BehaviorSubject<boolean>(true);
   private updateOutputResolutionDisplay$ = new Subject<IVector2>();
