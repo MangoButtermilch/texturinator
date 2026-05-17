@@ -9,7 +9,7 @@ import { ShaderConfig, defaultConfig, NoiseLayer, logoConfig } from '../interfac
 @Injectable({
   providedIn: 'root'
 })
-export class CanvasService extends DefaultCanvas {
+export class VolumeService extends DefaultCanvas {
 
   private config$ = new BehaviorSubject<ShaderConfig>(defaultConfig);
   private config: ShaderConfig = defaultConfig;

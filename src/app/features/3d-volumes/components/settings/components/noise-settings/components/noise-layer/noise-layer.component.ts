@@ -7,7 +7,7 @@ import { Slider } from '../../../../../../../../shared/components/slider/classes
 import { SliderComponent } from '../../../../../../../../shared/components/slider/slider.component';
 import { NoiseLayer, NoiseType } from '../../../../../../interfaces/shader-configs.interfaces';
 import { UiFactoryService } from '../../../../../../../../shared/services/ui-factory.service';
-import { CanvasService } from '../../../../../../services/canvas.service';
+import { VolumeService } from '../../../../../../services/volume-service';
 
 
 @Component({
@@ -32,7 +32,7 @@ export class NoiseLayerComponent implements OnInit {
 
   constructor(
     private uiFactory: UiFactoryService,
-    private canvasService: CanvasService
+    private canvasService: VolumeService
   ) { }
 
   ngOnInit(): void {

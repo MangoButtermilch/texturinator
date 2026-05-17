@@ -7,7 +7,7 @@ import { Slider } from '../../../../../../shared/components/slider/classes/slide
 import { SliderComponent } from '../../../../../../shared/components/slider/slider.component';
 import { ShaderConfig } from '../../../../interfaces/shader-configs.interfaces';
 import { UiFactoryService } from '../../../../../../shared/services/ui-factory.service';
-import { CanvasService } from '../../../../services/canvas.service';
+import { VolumeService } from '../../../../services/volume-service';
 
 @Component({
   selector: 'app-main-settings',
@@ -23,7 +23,7 @@ export class MainSettingsComponent implements OnInit {
   private shaderConfig$: Observable<ShaderConfig> = this.canvasService.getShaderConfig()
     .pipe(takeUntilDestroyed());
   constructor(
-    private canvasService: CanvasService,
+    private canvasService: VolumeService,
     private uiFactory: UiFactoryService
   ) { }
 

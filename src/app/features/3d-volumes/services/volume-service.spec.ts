@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CanvasService } from './canvas.service';
+import { VolumeService } from './volume-service';
 
-describe('CanvasService', () => {
-  let service: CanvasService;
+describe('VolumeService', () => {
+  let service: VolumeService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CanvasService);
+    service = TestBed.inject(VolumeService);
   });
 
   it('should be created', () => {
