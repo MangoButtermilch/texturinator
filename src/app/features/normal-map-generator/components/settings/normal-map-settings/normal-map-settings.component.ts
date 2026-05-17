@@ -7,7 +7,7 @@ import { Checkbox } from '../../../../../shared/components/checkbox/classes/chec
 import { Slider } from '../../../../../shared/components/slider/classes/slider.class';
 import { UiFactoryService } from '../../../../../shared/services/ui-factory.service';
 import { ShaderConfig } from '../../../../3d-volumes/interfaces/shader-configs.interfaces';
-import { CanvasService } from '../../../services/canvas.service';
+import { HeightmapGeneratorService } from '../../../services/heightmap-generator-service';
 
 @Component({
   selector: 'app-normal-map-settings',
@@ -25,7 +25,7 @@ export class NormalMapSettingsComponent implements OnInit {
   public checkboxes: Checkbox[];
 
   constructor(
-    private canvasService: CanvasService,
+    private canvasService: HeightmapGeneratorService,
     private uiFactory: UiFactoryService
   ) { }
 

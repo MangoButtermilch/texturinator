@@ -9,7 +9,7 @@ import { getMaxTextureSize } from '../../../shared/utils/webgl.utils';
 @Injectable({
   providedIn: 'root'
 })
-export class CanvasService extends DefaultCanvas {
+export class HeightmapGeneratorService extends DefaultCanvas {
 
   private showHint$ = new BehaviorSubject<boolean>(true);
   private updateOutputResolutionDisplay$ = new Subject<IVector2>();
