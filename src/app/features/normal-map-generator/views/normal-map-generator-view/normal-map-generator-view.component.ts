@@ -23,7 +23,7 @@ import { NormalMapSettingsComponent } from '../../components/settings/normal-map
     NormalMapSettingsComponent
   ],
   templateUrl: './normal-map-generator-view.component.html',
-  styleUrl: './normal-map-generator-view.component.scss'
+  styleUrls: ['./normal-map-generator-view.component.scss', '../../../../shared/scss/settings.scss']
 })
 export class NormalMapGeneratorViewComponent {
   DialogSize = DialogSize;

@@ -27,7 +27,7 @@ import { CanvasComponent } from '../../../../shared/components/canvas/canvas.com
     DialogComponent
   ],
   templateUrl: './terrain-generator-view.component.html',
-  styleUrl: './terrain-generator-view.component.scss'
+  styleUrls: ['./terrain-generator-view.component.scss', '../../../../shared/scss/settings.scss']
 })
 export class TerrainGeneratorViewComponent {
 
