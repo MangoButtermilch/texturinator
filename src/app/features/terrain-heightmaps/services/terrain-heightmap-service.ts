@@ -6,7 +6,7 @@ import { ShaderLoaderService } from '../../../shared/services/shader-loader.serv
 @Injectable({
   providedIn: 'root'
 })
-export class CanvasService extends DefaultCanvas {
+export class TerrainHeightmapService extends DefaultCanvas {
 
   constructor(private shaderLoader: ShaderLoaderService) {
     super();

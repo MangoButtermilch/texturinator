@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CanvasService } from '../../services/canvas.service';
+import { TerrainHeightmapService } from '../../services/terrain-heightmap-service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, startWith } from 'rxjs';
 import { CommonModule } from '@angular/common';
@@ -49,7 +49,7 @@ export class TerrainGeneratorViewComponent {
 
   constructor(
     private uiFactory: UiFactoryService,
-    public canvasService: CanvasService) { }
+    public canvasService: TerrainHeightmapService) { }
 
   ngOnInit(): void {
     this.previewBtn = this.uiFactory.buildButton(

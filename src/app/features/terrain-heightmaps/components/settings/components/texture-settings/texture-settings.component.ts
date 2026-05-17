@@ -4,7 +4,7 @@ import { InputComponent } from '../../../../../../shared/components/input/input.
 import { UiFactoryService } from '../../../../../../shared/services/ui-factory.service';
 import { getMaxTextureSize } from '../../../../../../shared/utils/webgl.utils';
 import { IVector2 } from '../../../../../3d-volumes/interfaces/shader-configs.interfaces';
-import { CanvasService } from '../../../../services/canvas.service';
+import { TerrainHeightmapService } from '../../../../services/terrain-heightmap-service';
 import { CheckboxComponent } from "../../../../../../shared/components/checkbox/checkbox.component";
 import { Checkbox } from '../../../../../../shared/components/checkbox/classes/checkbox.class';
 
@@ -26,7 +26,7 @@ export class TextureSettingsComponent implements OnInit {
 
   constructor(
     private uiFactory: UiFactoryService,
-    private canvasService: CanvasService
+    private canvasService: TerrainHeightmapService
   ) { }
 
   ngOnInit(): void {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Checkbox } from '../../../../../../shared/components/checkbox/classes/checkbox.class';
 import { Slider } from '../../../../../../shared/components/slider/classes/slider.class';
 import { UiFactoryService } from '../../../../../../shared/services/ui-factory.service';
-import { CanvasService } from '../../../../services/canvas.service';
+import { TerrainHeightmapService } from '../../../../services/terrain-heightmap-service';
 import { SliderComponent } from '../../../../../../shared/components/slider/slider.component';
 
 @Component({
@@ -19,7 +19,7 @@ export class TerrainSettingsComponent implements OnInit {
   public checkboxes: Checkbox[];
 
   constructor(
-    private canvasService: CanvasService,
+    private canvasService: TerrainHeightmapService,
     private uiFactory: UiFactoryService
   ) { }
 
