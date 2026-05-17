@@ -18,6 +18,8 @@ export class NormalMapGeneratorService extends BaseCanvasService {
     super();
   }
 
+  protected override afterUniformUpdated(name: string, value: any) { }
+
   protected override async loadShaderAndMaterialConfiguration(): Promise<void> {
 
     const shaderFiles = await this.shaderLoader.loadShaders(

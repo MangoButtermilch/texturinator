@@ -19,6 +19,7 @@ export class VolumeService extends BaseCanvasService {
   }
 
   protected override afterSetup(): void { }
+  protected override afterUniformUpdated(name: string, value: any) { }
 
   protected override async loadShaderAndMaterialConfiguration(): Promise<void> {
     const noiseLibFiles = await this.shaderLoader.loadShaders(

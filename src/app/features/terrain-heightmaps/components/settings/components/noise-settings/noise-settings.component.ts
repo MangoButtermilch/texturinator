@@ -29,8 +29,8 @@ export class NoiseSettingsComponent implements OnInit {
       this.uiFactory.buildSlider("Erosion strength", "EROSION_STRENGTH", 0.22, 0, 10),
       this.uiFactory.buildSlider("Erosion gully weight", "EROSION_GULLY_WEIGHT", 0.5, 0, 1),
       this.uiFactory.buildSlider("Erosion detail", "EROSION_DETAIL", 1.5, 0, 10),
-      this.uiFactory.buildSlider("Ridge rounding", "ridgeRounding", 0.1, 0, 1),
-      this.uiFactory.buildSlider("Crease rounding", "creaseRounding", 0.0, 0, 1),
+      this.uiFactory.buildSlider("Ridge rounding", "ridgeRounding", 0.1, -10, 10),
+      this.uiFactory.buildSlider("Crease rounding", "creaseRounding", 0.0, -10, 10),
 
       this.uiFactory.buildSlider("Erosion cell scale", "EROSION_CELL_SCALE", 0.7, 0, 1),
       this.uiFactory.buildSlider("Erosion normalization", "EROSION_NORMALIZATION", 0.5, 0, 1),
