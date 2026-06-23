@@ -14,6 +14,7 @@ import { TextureSettingsComponent } from '../../components/settings/components/t
 import { TerrainSettingsComponent } from '../../components/settings/components/terrain-settings/terrain-settings.component';
 import { DialogComponent } from '../../../../shared/components/dialog/dialog.component';
 import { CanvasComponent } from '../../../../shared/components/canvas/canvas.component';
+import { TerrainPreviewComponent } from '../../components/terrain-preview/terrain-preview.component';
 
 @Component({
   selector: 'app-terrain-generator-view',
@@ -24,7 +25,8 @@ import { CanvasComponent } from '../../../../shared/components/canvas/canvas.com
     ButtonComponent,
     TextureSettingsComponent,
     TerrainSettingsComponent,
-    DialogComponent
+    DialogComponent,
+    TerrainPreviewComponent
   ],
   templateUrl: './terrain-generator-view.component.html',
   styleUrls: ['./terrain-generator-view.component.scss', '../../../../shared/scss/settings.scss']
