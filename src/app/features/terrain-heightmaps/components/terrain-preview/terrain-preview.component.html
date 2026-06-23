@@ -1,4 +1,10 @@
 <div class="canvas-wrapper">
   <canvas #previewElement></canvas>
- 
+
+  <div class="settings">
+    <app-slider
+      [config]="previewHeightScale"
+      (onValueChange)="onUniformChange($event)"
+    ></app-slider>
+  </div>
 </div>

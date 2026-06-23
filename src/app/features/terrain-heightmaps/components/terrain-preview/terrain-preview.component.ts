@@ -6,10 +6,11 @@ import { Slider } from '../../../../shared/components/slider/classes/slider.clas
 import { UiFactoryService } from '../../../../shared/services/ui-factory.service';
 import { VolumePreviewService } from '../../../3d-volumes/services/volume-preview.service';
 import { TerrainPreviewService } from '../../services/terrain-preview.service';
+import { SliderComponent } from '../../../../shared/components/slider/slider.component';
 
 @Component({
   selector: 'app-terrain-preview',
-  imports: [],
+  imports: [SliderComponent],
   templateUrl: './terrain-preview.component.html',
   styleUrl: './terrain-preview.component.scss'
 })
@@ -19,6 +20,7 @@ export class TerrainPreviewComponent implements OnInit, OnDestroy {
   @Input() open: boolean = false;
 
   public resetCameraBtn: Button = null;
+  public previewHeightScale: Slider = null;
 
   constructor(
     private uiFactory: UiFactoryService,
@@ -30,6 +32,15 @@ export class TerrainPreviewComponent implements OnInit, OnDestroy {
       "btn-info",
       faRotateLeft,
       IconPosition.LEFT
+    );
+
+    this.previewHeightScale = this.uiFactory.buildSlider(
+      "Height scale",
+      "previewHeightScale",
+      1.,
+      -100.,
+      100.,
+      0.1
     );
   }
 

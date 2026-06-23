@@ -6,6 +6,7 @@ import { ShaderLoaderService } from '../../../shared/services/shader-loader.serv
 import { IVector2 } from '../../3d-volumes/interfaces/shader-configs.interfaces';
 import { VolumeService } from '../../3d-volumes/services/volume-service';
 import * as THREE from 'three';
+import { TerrainHeightmapService } from './terrain-heightmap-service';
 
 @Injectable({
   providedIn: 'root'
@@ -38,7 +39,7 @@ export class TerrainPreviewService {
   private quad: THREE.Mesh = null;
 
   constructor(
-    private canvasService: VolumeService,
+    private canvasService: TerrainHeightmapService,
     private shaderLoader: ShaderLoaderService) {
     this.handleShaderUniforms();
     this.handleOnInit();
@@ -86,10 +87,11 @@ export class TerrainPreviewService {
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera(50, bounds.width / bounds.height, 0.1, 100);  // aspect=1
-    this.camera.position.set(0, 0, 2);
+    this.camera.position.set(0, 3, 2);
     this.camera.updateProjectionMatrix();
 
     this.orbitControls = new OrbitControls(this.camera, this.canvas);
+    this.orbitControls.target.set(0, 0, 0);
 
     this.renderer = new THREE.WebGLRenderer({
       canvas: this.canvas,
@@ -99,9 +101,10 @@ export class TerrainPreviewService {
     this.renderer.setSize(bounds.width, bounds.height);
 
     await this.loadShaderAndMaterialConfiguration();
-    const geometry = new THREE.PlaneGeometry(2, 2);
+    const geometry = new THREE.PlaneGeometry(2, 2, 512, 512);
     const quad = new THREE.Mesh(geometry, this.material);
     this.quad = quad;
+    this.quad.rotation.x = -Math.PI * 0.5;
     this.scene.add(quad);
 
     this.initialCameraPosition.copy(this.camera.position);
@@ -115,48 +118,40 @@ export class TerrainPreviewService {
     const noiseLibFiles = await this.shaderLoader.loadShaders(
       {
         noiseUtils: "/assets/shaders/lib/noise/0-noise-utils.glsl",
-        perlinNoise3d: "/assets/shaders/lib/noise/1-perlin-noise.glsl",
-        simplexNoise3d: "/assets/shaders/lib/noise/2-simplex-noise.glsl",
-        voronoi3d: "/assets/shaders/lib/noise/3-voronoi-noise.glsl",
-        nebula3d: "/assets/shaders/lib/noise/4-nebula-noise.glsl",
+        phacelleNoise: "/assets/shaders/lib/noise/6-phacelle-noise.glsl",
       }
     );
     const shaderFiles = await this.shaderLoader.loadShaders(
       {
-        uniforms: "/assets/shaders/3d-volume-generator/1-uniforms.glsl",
-        uvUtils: "/assets/shaders/3d-volume-generator/2-uv-utils.glsl",
-        noiseLayers: "/assets/shaders/3d-volume-generator/3-noise-layers.glsl",
-        fragment: "/assets/shaders/3d-volume-generator/volume-preview/fragment.glsl",
-        vertex: "/assets/shaders/3d-volume-generator/volume-preview/vertex.glsl",
+        uniforms: "/assets/shaders/terrain-heightmaps/terrain-preview/1-uniforms.glsl",
+        fragment: "/assets/shaders/terrain-heightmaps/terrain-preview/2-fragment.glsl",
+        vertex: "/assets/shaders/terrain-heightmaps/terrain-preview/3-vertex.glsl",
       }
     );
 
-    const shaderSetupFragment =
-      noiseLibFiles['noiseUtils']
-        .concat(noiseLibFiles['perlinNoise3d'])
-        .concat(noiseLibFiles['simplexNoise3d'])
-        .concat(noiseLibFiles['voronoi3d'])
-        .concat(noiseLibFiles['nebula3d'])
-        .concat(shaderFiles['noiseLayers'])
-        .concat(shaderFiles['uniforms'])
-        .concat(shaderFiles['uvUtils'])
-        .concat(shaderFiles['fragment']);
+    const shaderSetupFragment = shaderFiles['uniforms']
+      .concat(shaderFiles['fragment']);
+
+    const shaderSetupVertex =
+      shaderFiles['uniforms']
+        .concat(noiseLibFiles['noiseUtils'])
+        .concat(noiseLibFiles['phacelleNoise'])
+        .concat(shaderFiles['vertex']);
+
 
 
     this.material = new THREE.ShaderMaterial({
       transparent: true,
-      depthWrite: false,
-      depthTest: false,
-      side: THREE.DoubleSide,
+      depthWrite: true,
+      depthTest: true,
+      side: THREE.FrontSide,
       blending: THREE.NormalBlending,
       uniforms: {
         ...this.shaderUniforms,
-        densityMult: { value: 1.0 },
-        stepSize: { value: 0.01 },
-        maxSteps: { value: 70 },
+        previewHeightScale: { value: 1.0 },
         cameraPos: { value: this.camera.position }
       },
-      vertexShader: shaderFiles['vertex'],
+      vertexShader: shaderSetupVertex,
       fragmentShader: shaderSetupFragment
     });
   }
