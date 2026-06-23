@@ -1,6 +1,6 @@
 varying vec2 vUv; 
 
- vec4 encodeHeight(float h) {
+vec4 encodeHeight(float h) {
     h = clamp(h, 0.0, 1.0);
 
     vec4 enc;
