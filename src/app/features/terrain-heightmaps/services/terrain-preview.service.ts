@@ -101,7 +101,7 @@ export class TerrainPreviewService {
     this.renderer.setSize(bounds.width, bounds.height);
 
     await this.loadShaderAndMaterialConfiguration();
-    const geometry = new THREE.PlaneGeometry(2, 2, 512, 512);
+    const geometry = new THREE.PlaneGeometry(2, 2, 256, 256);
     const quad = new THREE.Mesh(geometry, this.material);
     this.quad = quad;
     this.quad.rotation.x = -Math.PI * 0.5;
@@ -148,7 +148,7 @@ export class TerrainPreviewService {
       blending: THREE.NormalBlending,
       uniforms: {
         ...this.shaderUniforms,
-        previewHeightScale: { value: 1.0 },
+        previewHeightScale: { value: 10.0 },
         cameraPos: { value: this.camera.position }
       },
       vertexShader: shaderSetupVertex,

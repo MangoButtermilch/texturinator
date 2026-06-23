@@ -37,7 +37,7 @@ export class TerrainPreviewComponent implements OnInit, OnDestroy {
     this.previewHeightScale = this.uiFactory.buildSlider(
       "Height scale",
       "previewHeightScale",
-      1.,
+      10,
       -100.,
       100.,
       0.1
