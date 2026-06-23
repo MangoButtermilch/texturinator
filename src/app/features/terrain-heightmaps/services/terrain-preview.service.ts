@@ -101,7 +101,7 @@ export class TerrainPreviewService {
     this.renderer.setSize(bounds.width, bounds.height);
 
     await this.loadShaderAndMaterialConfiguration();
-    const geometry = new THREE.PlaneGeometry(2, 2, 256, 256);
+    const geometry = new THREE.PlaneGeometry(2, 2, 512, 512);
     const quad = new THREE.Mesh(geometry, this.material);
     this.quad = quad;
     this.quad.rotation.x = -Math.PI * 0.5;
